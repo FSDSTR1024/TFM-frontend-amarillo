@@ -1,8 +1,7 @@
-import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import './LoginForm.css'
 
-const LoginForm = () => {
+const LoginForm = ({ onSwitchForm }) => {
   const { register, handleSubmit, formState } = useForm();
   const requiredMessage = 'Este campo es obligatorio';
 
@@ -38,7 +37,7 @@ const LoginForm = () => {
 
         <button type="submit">Entrar</button>
         <p className="switch-form">
-          ¿No tienes una cuenta? <Link to="/register">Regístrate</Link>
+          ¿No tienes una cuenta? <button type="button" onClick={onSwitchForm}>Regístrate</button>
         </p>
       </form>
     </div>
