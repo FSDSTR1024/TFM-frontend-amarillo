@@ -27,7 +27,7 @@ const RegisterForm = () => {
       };
 
       const result = await response.json();
-      alert(`Usuario registrado con exito.Bienvenido a Whiz ${result.username}!`);
+      alert(`Usuario registrado con exito. Bienvenido a Whiz ${result.username}!`); //Preguntar a Rubén o Jordi por qué me sale undefined
     } catch (error) {
       console.error(error);
       alert(`Error al registrar el usuario. Por favor revisa tus datos e intenta de nuevo.`);
@@ -39,7 +39,7 @@ const RegisterForm = () => {
       <h1>Bienvenido a Whiz. Donde las ideas vuelan rápido</h1>
       <h2>Registro</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor="username">Nombre de usuario(el nombre de usuario es con el que otros usuarios te identificaran):
+        <label htmlFor="username">Nombre de usuario ( el nombre con el que quieres que te conozcamos ):
         </label>
         <input type="text" placeholder="Nombre de usuario" {...register("username", { required: { value: true, message: requiredMessage }, minLength: { value: 4, message: 'El nombre de usuario debe tener al menos 4 caracteres' } })} />
         {formState.errors.username && <p className="error">{formState.errors.username.message}</p>}
@@ -56,12 +56,12 @@ const RegisterForm = () => {
         <input type="password" placeholder="Confirmar contraseña" {...register("confirmPassword", { required: { value: true, message: requiredMessage }, validate: (value) => value === watch("password") || "Las contraseñas no coinciden" })} />
         {formState.errors.confirmPassword && <p className="error">{formState.errors.confirmPassword.message}</p>}
 
-        <label htmlFor="name">Nombre(tu nombre real, solo se mostrará en tu perfil si lo deseas)</label>
+        <label htmlFor="name">Nombre ( tu nombre real, solo se mostrará en tu perfil si lo deseas )</label>
         <input type="text" placeholder="Nombre" {...register("name", { required: { value: true, message: requiredMessage } })} />
         {formState.errors.name && <p className="error">{formState.errors.name.message}</p>}
 
-        <label htmlFor="surname">Apellido:</label>
-        <input type="text" placeholder="Apellido" {...register("surname", { required: { value: true, message: requiredMessage } })} />
+        <label htmlFor="surname">Apellido(s):</label>
+        <input type="text" placeholder="Apellido(s)" {...register("surname", { required: { value: true, message: requiredMessage } })} />
         {formState.errors.surname && <p className="error">{formState.errors.surname.message}</p>}
 
         <button type="submit">Registrarte</button>
