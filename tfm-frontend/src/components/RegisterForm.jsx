@@ -27,7 +27,8 @@ const RegisterForm = () => {
       };
 
       const result = await response.json();
-      alert(`Usuario registrado con exito. Bienvenido a Whiz ${result.username}!`); //Preguntar a Rubén o Jordi por qué me sale undefined
+      console.log(result);
+      alert(`Usuario registrado con exito. Bienvenido a Whiz ${result.username}!`);
     } catch (error) {
       console.error(error);
       alert(`Error al registrar el usuario. Por favor revisa tus datos e intenta de nuevo.`);
