@@ -12,7 +12,7 @@
   transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 2em #1295fd);
 }
 
 .switch-form {
@@ -20,8 +20,8 @@
   text-align: center;
 }
 
-.switch-form button {
-  background: none;
+.switch-form a {
+  color: #0e151e;
   border: none;
   text-decoration: underline;
   cursor: pointer;
