@@ -24,11 +24,21 @@ function Register() {
   )
 }
 
+function MainPage() {
+
+  return (
+    <>
+      <Logo />
+      <h1>Whiz!</h1>
+    </>)
+}
+
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/main" element={<MainPage />} />
         <Route path="/register" element={<Register />} />
       </Routes>
     </Router>

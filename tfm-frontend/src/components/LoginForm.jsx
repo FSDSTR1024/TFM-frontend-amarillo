@@ -1,13 +1,43 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import './LoginForm.css'
 
 const LoginForm = () => {
   const { register, handleSubmit, formState } = useForm();
+  const navigate = useNavigate();
   const requiredMessage = 'Este campo es obligatorio';
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    try {
+      const response = await fetch("http://localhost:3000/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          identifier: data.username,
+          password: data.password
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      const result = await response.json();
+      console.log(result);
+      alert(
+        `Sesion iniciada con exito. Bienvenido a Whiz ${result.user.username}!`
+      );
+
+      localStorage.setItem("token", result.token);
+      navigate("/main");
+    } catch (error) {
+      console.error(error);
+      alert(
+        `Error al iniciar sesion. Por favor revisa tus datos e intenta de nuevo.`
+      );
+    }
   };
 
   return (
