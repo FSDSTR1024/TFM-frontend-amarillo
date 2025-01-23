@@ -1,8 +1,8 @@
 import './App.css'
-import LoginForm from './components/LoginForm'
-import RegisterForm from './components/RegisterForm'
+import LoginForm from './components/login/LoginForm'
+import RegisterForm from './components/register/RegisterForm'
 import { Route, BrowserRouter as Router, Routes} from 'react-router-dom'
-import Logo from './components/Logo'
+import Logo from './assets/Logo'
 
 function Login() {
 

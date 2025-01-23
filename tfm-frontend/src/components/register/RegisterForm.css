@@ -61,3 +61,11 @@
   font-size: 0.875rem;
   margin-top: -0.5rem;
 }
+
+.register-form .invalid-check {
+  color: red;
+}
+
+.register-form .check {
+  color: green;
+}
