@@ -1,8 +1,8 @@
-import "./App.css";
-import LoginForm from "./components/Login/LoginForm";
-import RegisterForm from "./components/Register/RegisterForm";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import Logo from "./components/Logo";
+import './App.css'
+import LoginForm from './components/login/LoginForm'
+import RegisterForm from './components/register/RegisterForm'
+import { Route, BrowserRouter as Router, Routes} from 'react-router-dom'
+import Logo from './assets/Logo'
 
 function Login() {
   return (
@@ -22,11 +22,21 @@ function Register() {
   );
 }
 
+function MainPage() {
+
+  return (
+    <>
+      <Logo />
+      <h1>Whiz!</h1>
+    </>)
+}
+
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/main" element={<MainPage />} />
         <Route path="/register" element={<Register />} />
       </Routes>
     </Router>
