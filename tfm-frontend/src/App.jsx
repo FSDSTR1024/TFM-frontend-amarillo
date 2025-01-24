@@ -3,6 +3,7 @@ import LoginForm from './components/login/LoginForm'
 import RegisterForm from './components/register/RegisterForm'
 import { Route, BrowserRouter as Router, Routes} from 'react-router-dom'
 import Logo from './assets/Logo'
+import Chat from './assets/Test'
 
 function Login() {
 
@@ -30,6 +31,7 @@ function MainPage() {
     <>
       <Logo />
       <h1>Whiz!</h1>
+      <Chat />
     </>)
 }
 
