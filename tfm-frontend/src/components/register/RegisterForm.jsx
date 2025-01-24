@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import "./RegisterForm.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Check, X } from "lucide-react";
 
 const RegisterForm = () => {
@@ -10,8 +10,6 @@ const RegisterForm = () => {
     formState: { errors },
     watch,
   } = useForm({ mode: "onChange" });
-
-  const navigate = useNavigate();
   const password = watch("password", "");
 
   const passwordValidations = {
@@ -25,9 +23,9 @@ const RegisterForm = () => {
   const ValidationItem = ({ passed, text }) => (
     <div className="flex items-center gap-2 my-1">
       {passed ? (
-        <Check className="check" size={16} />
+        <Check className="text-green-500" size={16} />
       ) : (
-        <X className="invalid-check" size={16} />
+        <X className="text-red-500" size={16} />
       )}
       <span className={passed ? "text-green-600" : "text-red-600" + " text-sm"}>
         {text}
@@ -60,9 +58,6 @@ const RegisterForm = () => {
       alert(
         `Usuario registrado con exito. Bienvenido a Whiz ${result.username}!`
       );
-
-      localStorage.setItem("token", result.token);
-      navigate("/");
     } catch (error) {
       console.error(error);
       alert(

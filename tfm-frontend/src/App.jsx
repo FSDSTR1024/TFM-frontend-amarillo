@@ -6,23 +6,21 @@ import Logo from './assets/Logo'
 import Chat from './assets/Test'
 
 function Login() {
-
   return (
     <>
       <Logo />
       <LoginForm />
     </>
-  )
+  );
 }
 
 function Register() {
-
   return (
     <>
       <Logo />
       <RegisterForm />
     </>
-  )
+  );
 }
 
 function MainPage() {
@@ -44,7 +42,7 @@ function App() {
         <Route path="/register" element={<Register />} />
       </Routes>
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;
