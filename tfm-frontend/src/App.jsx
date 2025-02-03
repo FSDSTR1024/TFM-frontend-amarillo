@@ -3,7 +3,7 @@ import LoginForm from './components/login/LoginForm'
 import RegisterForm from './components/register/RegisterForm'
 import { Route, BrowserRouter as Router, Routes} from 'react-router-dom'
 import Logo from './assets/Logo'
-import Chat from './assets/Test'
+import MenuBar from './components/menuBar/MenuBar'
 
 function Login() {
   return (
@@ -28,8 +28,7 @@ function MainPage() {
   return (
     <>
       <Logo />
-      <h1>Whiz!</h1>
-      <Chat />
+      <MenuBar />
     </>)
 }
 
