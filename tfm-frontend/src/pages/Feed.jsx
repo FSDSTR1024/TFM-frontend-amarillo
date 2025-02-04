@@ -7,8 +7,6 @@ const Feed = () => {
       <HeaderBar/>
       <h1>feed</h1>
       <MenuBar />
-      
-    
     </>
   );
 };

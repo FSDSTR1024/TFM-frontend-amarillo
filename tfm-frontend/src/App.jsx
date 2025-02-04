@@ -6,8 +6,6 @@ import Logo from './assets/Logo'
 import Feed from './pages/Feed'
 import Profile from './pages/Profile'
 
- 
-
 function Login() {
   return (
     <>
@@ -30,19 +28,16 @@ function MainPage() {
 
   return (
     <>
-      
       <Feed/>
-    
-      
     </>)
 }
 
 function ProfilePage () {
- return (
-  <>
-   <Profile/>
-  </>
- )
+  return (
+    <>
+      <Profile/>
+    </>
+  )
 }
 
 
