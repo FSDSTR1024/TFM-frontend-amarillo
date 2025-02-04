@@ -3,7 +3,10 @@ import LoginForm from './components/login/LoginForm'
 import RegisterForm from './components/register/RegisterForm'
 import { Route, BrowserRouter as Router, Routes} from 'react-router-dom'
 import Logo from './assets/Logo'
-import MenuBar from './components/menuBar/MenuBar'
+import Feed from './pages/Feed'
+import Profile from './pages/Profile'
+
+ 
 
 function Login() {
   return (
@@ -27,10 +30,21 @@ function MainPage() {
 
   return (
     <>
-      <Logo />
-      <MenuBar />
+      
+      <Feed/>
+    
+      
     </>)
 }
+
+function ProfilePage () {
+ return (
+  <>
+   <Profile/>
+  </>
+ )
+}
+
 
 function App() {
   return (
@@ -39,6 +53,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/main" element={<MainPage />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={<ProfilePage/>} />
       </Routes>
     </Router>
   );
