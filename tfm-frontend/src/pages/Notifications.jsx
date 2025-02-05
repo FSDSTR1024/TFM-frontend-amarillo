@@ -1,7 +1,7 @@
 import HeaderBar from "../components/headerBar/HeaderBar";
 import MenuBar from "../components/menuBar/MenuBar";
 
-const Messages = () => {
+const Notifications = () => {
     return (
       <>
         <HeaderBar />
@@ -10,4 +10,4 @@ const Messages = () => {
     );
   };
 
-  export default Messages;
+  export default Notifications;
