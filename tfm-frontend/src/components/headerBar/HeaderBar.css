@@ -39,7 +39,9 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
+  padding: 0%;
 }
+
 .left-icons button:hover {
   scale: calc(1.1);
 }
@@ -54,6 +56,9 @@
   transform: translateX(-50%);
 }
 
+h1 {
+  font-size: clamp(1.5rem, 4vw, 3rem);
+}
 .title .logo {
   width: 70px;
   height: 70px;
@@ -61,8 +66,60 @@
 
 .perfil {
   margin-left: auto;
+  padding: 0;
 }
 
 .perfil:hover {
   scale: calc(1.1);
+}
+@media (max-width: 768px) {
+  .header-bar-container {
+    width: 95%;
+  }
+
+  .header-bar {
+    height: 8vh;
+    padding: 8px;
+  }
+
+  .title {
+    font-size: 16px;
+  }
+
+  .left-icons {
+    gap: 8px;
+    padding: 0%;
+  }
+
+  .left-icons button {
+    scale: 0.8;
+  }
+
+  .perfil {
+    scale: 0.8;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-bar-container {
+    width: 95%;
+  }
+  .header-bar {
+    flex-direction: row;
+    height: 6vh;
+    padding: 6px;
+  }
+  .title h1 {
+    font-size: 0.5;
+  }
+  .title .logo {
+    width: 50px;
+    height: 50px;
+  }
+  .left-icons button {
+    scale: 0.6;
+  }
+  .perfil {
+    scale: 0.6;
+  }
 }
