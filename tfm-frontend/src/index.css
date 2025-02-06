@@ -1,6 +1,6 @@
 @font-face {
-  font-family: 'Poppins';
-  src: url('./assets/fonts/Poppins-Light.ttf');
+  font-family: "Poppins";
+  src: url("./assets/fonts/Poppins-Light.ttf");
 }
 
 :root {
@@ -9,10 +9,9 @@
   font-weight: 100;
   width: 100%;
 
-
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background: linear-gradient(-45deg, #11a4ff 15%, #0e151e 45%, #1a1a1a); ;
+  background: linear-gradient(-45deg, #11a4ff 15%, #0e151e 45%, #1a1a1a);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
