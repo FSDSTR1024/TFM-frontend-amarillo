@@ -23,9 +23,9 @@ const RegisterForm = () => {
   const ValidationItem = ({ passed, text }) => (
     <div className="flex items-center gap-2 my-1">
       {passed ? (
-        <Check className="text-green-500" size={16} />
+        <Check className="check" size={16} />
       ) : (
-        <X className="text-red-500" size={16} />
+        <X className="invalid-check" size={16} />
       )}
       <span className={passed ? "text-green-600" : "text-red-600" + " text-sm"}>
         {text}

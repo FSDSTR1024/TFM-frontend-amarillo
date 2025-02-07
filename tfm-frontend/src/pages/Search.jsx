@@ -1,10 +1,10 @@
-import HeaderBar from "../components/headerBar/HeaderBar";
 import MenuBar from "../components/menuBar/MenuBar";
+import SearchBar from "../components/searchBar/SearchBar";
 
 const Search = () => {
     return (
       <>
-        <HeaderBar />
+        <SearchBar />
         <MenuBar />
       </>
     );
