@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
+import image from '../../assets/icons/imagen.svg';
+import video from '../../assets/icons/video camara.svg';
+import crear from '../../assets/icons/derecho.svg'
 import './WhizzesForm.css';
 
 const CreateWhizz = () => {
@@ -8,6 +11,10 @@ const CreateWhizz = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
+  const handleImgClick = (target) => {
+    console.log('click en imagen');
+    document.querySelector('.'+target).click();
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -50,10 +57,20 @@ const CreateWhizz = () => {
 
   return (
     <form className="whizz-form" onSubmit={handleSubmit}>
-      <textarea placeholder='Que estás pensando?' value={content} onChange={(e) => setContent(e.target.value)} rows="5" required maxLength={335}/>
-      <button type="submit" disabled={isSubmitting}>
-        {isSubmitting ? 'Creando whizz...' : 'Crear Whizz'}
-      </button>
+      <textarea placeholder='Que estás pensando?' value={content} onChange={(e) => setContent(e.target.value)} rows="5" maxLength={335} />
+      <div className='buttons-container'>
+        <label className='image-button' htmlFor='image-input'>
+          <img src={image} onClick={()=> handleImgClick('image-input')} />
+          <input className="image-input" type="file" accept="image/*" onChange={(e) => setMedia([...media, e.target.files[0]])} />
+        </label>
+        <label className='video-button' htmlFor="video-input">
+          <img src={video} onClick={()=> handleImgClick('video-input')}/>
+          <input className="video-input" type="file" accept="video/*" onChange={(e) => setMedia([...media, e.target.files[0]])} />
+        </label>
+        <button type="submit" disabled={isSubmitting}>
+        <img src={crear} className="crear"/>
+        </button>
+      </div>
     </form>
   );
 };

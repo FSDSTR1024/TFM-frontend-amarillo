@@ -1,8 +1,8 @@
 .whizz-form {
   display: flex;
   flex-direction: column;
-  max-width: 400px;
-  min-width: 300px;
+  width: 100%;
+  max-width: 500px;
   min-height: 300px;
   margin: 0 auto;
   padding: 2rem;
@@ -22,7 +22,7 @@
   border: none;
   background-color: transparent;
   width: 100%;
-  height: 100%;
+  min-height: 120px;
   margin-bottom: 1rem;
   resize: none;
   flex-grow: 1;
@@ -32,10 +32,41 @@
   outline: none;
 }
 
+.whizz-form .buttons-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.whizz-form .image-input {
+  display: none;
+}
+
+.whizz-form .video-input {
+  display: none;
+}
+
+.whizz-form img {
+  width: 50px;
+  height: 50px;
+}
+
+.whizz-form img:hover {
+  scale: calc(1.1);
+  cursor: pointer;
+  filter: brightness(0) saturate(100%) invert(59%) sepia(83%) saturate(2612%) hue-rotate(172deg) brightness(97%) contrast(96%);
+}
+
 .whizz-form button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 0.7rem;
   font-size: 1rem;
-  background-color: #11a4ff;
+  background-color: transparent;
   color: white;
   border: none;
   border-radius: 5px;
@@ -44,5 +75,26 @@
 }
 
 .whizz-form button:hover {
-  background-color: #1295fd;
+  filter: brightness(0) saturate(100%) invert(59%) sepia(83%) saturate(2612%) hue-rotate(172deg) brightness(97%) contrast(96%);
+}
+
+@media (max-width: 600px) {
+  .whizz-form {
+    padding: 1rem;
+    border-radius: 20px;
+  }
+
+  .whizz-form textarea {
+    min-height: 100px;
+  }
+
+  .whizz-form img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .whizz-form button {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
 }
