@@ -1,0 +1,64 @@
+.whizz-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 2rem;
+  border-radius: 36px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  align-items: center;
+  margin-top: 20px;
+  position: relative;
+}
+.whizz-card h4 {
+  margin: 0;
+  color: #11a4ff;
+}
+.whizz-card p {
+  margin: 5px 0;
+  font-size: 16px;
+}
+
+.whizz-card-media {
+  margin-top: 10px;
+}
+
+.whizz-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.whizz-video {
+  max-width: 50%;
+  border-radius: 10px;
+}
+
+.whizz-card-icons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 10px;
+}
+
+.whizz-card-icons img {
+  width: 30px;
+  height: 30px;
+}
+.whizz-card-icons .re-whizz {
+  width: 40px;
+  height: 40px;
+}
+.whizz-card-icons img:hover {
+  scale: calc(1.1);
+  cursor: pointer;
+  filter: brightness(0) saturate(100%) invert(59%) sepia(83%) saturate(2612%)
+    hue-rotate(172deg) brightness(97%) contrast(96%);
+}
