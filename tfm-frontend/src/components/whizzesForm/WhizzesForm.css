@@ -32,6 +32,12 @@
   outline: none;
 }
 
+.whizz-form .media-container {
+  display: flex;
+  height: auto;
+  width: 100%;
+}
+
 .whizz-form .buttons-container {
   display: flex;
   justify-content: space-between;
