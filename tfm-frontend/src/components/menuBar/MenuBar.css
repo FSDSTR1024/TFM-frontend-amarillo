@@ -28,6 +28,10 @@
 .menu-bar a:hover {
   scale: calc(1.1);
 }
+
+.add:hover {
+  filter: brightness(0) saturate(100%) invert(59%) sepia(83%) saturate(2612%) hue-rotate(172deg) brightness(97%) contrast(96%);
+}
 .menu-bar img {
   width: 50px;
   height: 50px;

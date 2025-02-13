@@ -3,12 +3,13 @@
   src: url("./assets/fonts/Poppins-Light.ttf");
 }
 
+/**, *::before, *::after { box-sizing: border-box; }*/
+
 :root {
   font-family: Poppins, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 100;
   width: 100%;
-
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background: linear-gradient(-45deg, #11a4ff 15%, #0e151e 45%, #1a1a1a);

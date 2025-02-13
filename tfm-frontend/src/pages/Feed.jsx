@@ -1,4 +1,3 @@
-import AddWhizzes from "../components/addWhizzes/AddWhizzes";
 import HeaderBar from "../components/headerBar/HeaderBar";
 import MenuBar from "../components/menuBar/MenuBar";
 import WhizzesContainer from "../components/whizzesContainer/WhizzesContainer";
@@ -8,7 +7,6 @@ const Feed = () => {
     <>
       <HeaderBar />
       <WhizzesContainer />
-      <AddWhizzes />
       <MenuBar />
     </>
   );

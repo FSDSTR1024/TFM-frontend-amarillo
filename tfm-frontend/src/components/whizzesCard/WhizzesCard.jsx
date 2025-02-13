@@ -7,7 +7,7 @@ import "./WhizzesCard.css";
 export const WhizzesCard = ({ whizz }) => {
   return (
     <div className="whizz-card">
-      <h4>@{whizz.username}</h4>
+      <h4>@{whizz.userId}</h4>
       <p>{whizz.content}</p>
 
       {whizz.media && whizz.media.length > 0 && (
