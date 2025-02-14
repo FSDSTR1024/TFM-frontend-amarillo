@@ -7,7 +7,7 @@ import "./WhizzesCard.css";
 export const WhizzesCard = ({ whizz }) => {
   return (
     <div className="whizz-card">
-      <h4>@{whizz.userId}</h4>
+      <h4>@{whizz.user?.username}</h4>
       <p>{whizz.content}</p>
 
       {whizz.media && whizz.media.length > 0 && (
@@ -34,7 +34,8 @@ export const WhizzesCard = ({ whizz }) => {
       )}
 
       <div className="whizz-card-icons">
-        <img className="like" src={like} alt="like" />
+        <img className="like" src={like} alt="like" onClick={whizz.likescount += 1} />
+          <p>{whizz.likescount}</p>
         <img src={comment} alt="comment" />
         <img className="re-whizz" src={reWhizz} alt="reWhizz" />
         <img src={send} alt="send" />

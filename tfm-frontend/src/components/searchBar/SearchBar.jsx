@@ -13,7 +13,7 @@ const SearchBar = () => {
 
     try {
       const response = await fetch(
-        `"http://localhost:3000/users/search?q=${searchTerm}`
+        `http://localhost:3000/users/search?q=${searchTerm}`
       );
 
       const data = await response.json();
@@ -44,11 +44,13 @@ const SearchBar = () => {
           onChange={handleSearch}
           className="search-input"
         />
+      </div>
+      <div className="search-results">
         {results.length > 0 && (
           <ul className="search-list">
             {results.map((user) => (
-              <li key={user._id}>
-                <img src={user.profilePicture} alt="avatar" />
+              <li key={user.username}>
+                {/*<img src={user.profilePicture} alt="avatar" />*/}
                 {user.username}
               </li>
             ))}

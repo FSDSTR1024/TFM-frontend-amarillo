@@ -22,7 +22,7 @@
 .search-bar img {
   width: 50px;
   height: 50px;
-  padding: 20px;
+  margin: 10px;
   filter: brightness(0) saturate(100%) invert(75%) sepia(5%) saturate(10%) hue-rotate(0deg) brightness(90%) contrast(90%);
 }
 
@@ -34,6 +34,30 @@
   background: transparent;
   outline: none;
   color: white;
+}
+
+.search-list {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 36px;
+  list-style-type: none;
+  margin-top: 5px;
+  gap: 10px;
+  text-align: left;
+}
+
+.search-results {
+  display: flex;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.search-results:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 @media (max-width: 768px) {

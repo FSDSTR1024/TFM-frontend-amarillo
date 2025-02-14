@@ -3,7 +3,7 @@
   src: url("./assets/fonts/Poppins-Light.ttf");
 }
 
-/**, *::before, *::after { box-sizing: border-box; }*/
+*, *::before, *::after { box-sizing: border-box; }
 
 :root {
   font-family: Poppins, system-ui, Avenir, Helvetica, Arial, sans-serif;
