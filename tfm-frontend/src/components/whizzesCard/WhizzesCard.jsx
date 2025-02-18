@@ -1,13 +1,13 @@
+import { useState } from "react";
 import like from "../../assets/icons/like.svg";
 import comment from "../../assets/icons/comentario-alt.svg";
 import reWhizz from "../../assets/icons/retuit-de-flechas.svg";
 import send from "../../assets/icons/send.svg";
 import "./WhizzesCard.css";
-import { useState } from "react";
 
-export const WhizzesCard = ({ whizz }) => {
-  const [likes, setLikes] = useState(whizz.likescount || 0);
-  const [liked, setLiked] = useState(whizz.likedBy.includes(localStorage.getItem('userId')));
+export const WhizzesCard = ({ whizz, updateWhizz }) => {
+  const [likesCount, setLikesCount] = useState(whizz.likesCount);
+  const [liked, setLiked] = useState(whizz.likedBy.includes(localStorage.getItem("userId")));
 
   const handleLike = async () => {
     try {
@@ -23,20 +23,16 @@ export const WhizzesCard = ({ whizz }) => {
         throw new Error('Error al dar like al whizz');
       }
 
-      const data = await response.json();
+      const updatedWhizz = await response.json();
 
-      if (liked) {
-        setLikes((prev) => prev - 1);
-      } else {
-        setLikes((prev) => prev + 1);
-      }
-
-      setLiked(!liked);
-      console.log(data);
+      // Actualizamos el estado del contador y si el usuario ya ha dado like
+      setLikesCount(updatedWhizz.likesCount);
+      setLiked(!liked);  // Cambiamos el estado de 'liked' para reflejar el nuevo estado
+      updateWhizz(updatedWhizz);  // Llamamos a la función para actualizar el whizz en el feed
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   return (
     <div className="whizz-card">
@@ -68,7 +64,7 @@ export const WhizzesCard = ({ whizz }) => {
 
       <div className="whizz-card-icons">
         <img className="like" src={like} alt="like" onClick={handleLike} />
-          <p>{likes}</p>
+        <p>{likesCount}</p>
         <img src={comment} alt="comment" />
         <img className="re-whizz" src={reWhizz} alt="reWhizz" />
         <img src={send} alt="send" />

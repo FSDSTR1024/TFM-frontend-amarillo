@@ -19,12 +19,18 @@ const WhizzesContainer = () => {
       });
   }, []);
 
+  const updateWhizz = (updatedWhizz) => {
+    setWhizzes((prevWhizzes) =>
+      prevWhizzes.map((w) => (w._id === updatedWhizz._id ? updatedWhizz : w))
+    );
+  };
+
   return (
     <div className="whizzes-container">
       {loading ? (
         <p>Cargando whizzes...</p>
       ) : (
-        whizzes.map((whizz) => <WhizzesCard key={whizz._id} whizz={whizz} />)
+        whizzes.map((whizz) => <WhizzesCard key={whizz._id} whizz={whizz} updateWhizz={updateWhizz} />)
       )}
     </div>
   );
