@@ -1,13 +1,13 @@
 import MenuBar from "../components/menuBar/MenuBar";
-import { ProfileMenu } from "../components/profileMenu/ProfileMenu";
+import ProfileMenu from "../components/profileMenu/ProfileMenu";
 
 const Profile = () => {
-    return (
-      <>
-        <ProfileMenu />
-        <MenuBar />
-      </>
-    );
-  };
+  return (
+    <>
+      <ProfileMenu />
+      <MenuBar />
+    </>
+  );
+};
 
-  export default Profile;
+export default Profile;
