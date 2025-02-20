@@ -23,8 +23,8 @@ const HeaderBar = () => {
           <button>
             <img src={barra} alt="barra" />
           </button>
-          <button>
-            <img src={refrescar} alt="refrescar" />{" "}
+          <button onClick={() => window.location.reload()}>
+            <img src={refrescar} alt="refrescar" />
           </button>
         </div>
         <div className="title">
