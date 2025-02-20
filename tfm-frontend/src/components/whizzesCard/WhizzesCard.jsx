@@ -1,13 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import like from "../../assets/icons/like.svg";
+import corazonLleno from "../../assets/icons/corazon lleno.svg";
 import comment from "../../assets/icons/comentario-alt.svg";
 import reWhizz from "../../assets/icons/retuit-de-flechas.svg";
 import send from "../../assets/icons/send.svg";
 import "./WhizzesCard.css";
 
 export const WhizzesCard = ({ whizz, updateWhizz }) => {
+  const userId = localStorage.getItem("userId"); // Obtener el ID del usuario logueado
   const [likesCount, setLikesCount] = useState(whizz.likesCount);
-  const [liked, setLiked] = useState(whizz.likedBy.includes(localStorage.getItem("userId")));
+  const [liked, setLiked] = useState(whizz.likedBy.includes(userId));
+
+  // Sincroniza el estado de "liked" cuando se actualiza el whizz
+  useEffect(() => {
+    setLiked(whizz.likedBy.includes(userId));
+  }, [whizz, userId]);
 
   const handleLike = async () => {
     try {
@@ -25,10 +32,9 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
 
       const updatedWhizz = await response.json();
 
-      // Actualizamos el estado del contador y si el usuario ya ha dado like
       setLikesCount(updatedWhizz.likesCount);
-      setLiked(!liked);  // Cambiamos el estado de 'liked' para reflejar el nuevo estado
-      updateWhizz(updatedWhizz);  // Llamamos a la función para actualizar el whizz en el feed
+      setLiked(updatedWhizz.likedBy.includes(userId));
+      updateWhizz(updatedWhizz);
     } catch (error) {
       console.error(error);
     }
@@ -63,7 +69,12 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
       )}
 
       <div className="whizz-card-icons">
-        <img className="like" src={like} alt="like" onClick={handleLike} />
+        <img
+          className="like"
+          src={liked ? corazonLleno : like}
+          alt="like"
+          onClick={handleLike}
+        />
         <p>{likesCount}</p>
         <img src={comment} alt="comment" />
         <img className="re-whizz" src={reWhizz} alt="reWhizz" />

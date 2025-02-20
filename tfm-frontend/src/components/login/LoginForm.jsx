@@ -26,11 +26,9 @@ const LoginForm = () => {
 
       const result = await response.json();
       console.log(result);
-      alert(
-        `Sesion iniciada con exito. Bienvenido a Whiz ${result.user.username}!`
-      );
 
       localStorage.setItem("token", result.token);
+      localStorage.setItem("userId", result.user.id);
       navigate("/main");
     } catch (error) {
       console.error(error);
