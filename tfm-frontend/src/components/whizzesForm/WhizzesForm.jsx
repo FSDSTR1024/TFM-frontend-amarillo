@@ -78,7 +78,6 @@ const CreateWhizz = () => {
 
       const data = await response.json();
       console.log("Whizz creado exitosamente:", data);
-      alert('Whizz creado exitosamente');
       setContent('');
       setMedia([]);
       navigate('/main');

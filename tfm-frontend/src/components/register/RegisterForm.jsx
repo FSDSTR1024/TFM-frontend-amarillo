@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import "./RegisterForm.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Check, X } from "lucide-react";
 
 const RegisterForm = () => {
@@ -10,6 +10,7 @@ const RegisterForm = () => {
     formState: { errors },
     watch,
   } = useForm({ mode: "onChange" });
+  const navigate = useNavigate();
   const password = watch("password", "");
 
   const passwordValidations = {
@@ -55,9 +56,7 @@ const RegisterForm = () => {
 
       const result = await response.json();
       console.log(result);
-      alert(
-        `Usuario registrado con exito. Bienvenido a Whiz ${result.username}!`
-      );
+      navigate("/");
     } catch (error) {
       console.error(error);
       alert(
