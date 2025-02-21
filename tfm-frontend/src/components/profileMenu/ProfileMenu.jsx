@@ -9,7 +9,6 @@ const cloudinary_cloud_name = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
 
 const ProfileMenu = () => {
   const userId = localStorage.getItem("userId");
-  console.log("El id de usuario es:", userId);
 
   const [userData, setUserData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
