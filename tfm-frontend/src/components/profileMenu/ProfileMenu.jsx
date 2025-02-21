@@ -1,116 +1,59 @@
-import { useState } from "react";
-import "./ProfileMenu.css";
+import { useEffect, useState } from 'react';
+import perfil from '../../assets/icons/perfil.svg'
+import logo from '../../assets/icons/whiz.svg'
+import './ProfileMenu.css';
 
-const ProfileMenu = ({ user }) => {
-  const [edit, setEdit] = useState(false);
-  const [newName, setNewName] = useState(user.name);
-  const [newUsername, setNewUsername] = useState(user.username);
-  const [banner, setBanner] = useState(user.banner);
-  const [profilePic, setProfilePic] = useState(user.profilePic);
+const cloudinary_url = 'https://api.cloudinary.com/v1_1';
+const cloudinary_upload_preset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+const cloudinary_cloud_name = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
 
-  if (!user) {
-    return <p>Cargando...</p>;
-  }
-  const handleSave = async () => {
-    const updatedUser = {
-      name: newName,
-      username: newUsername,
-      banner,
-      profilePic,
+const ProfileMenu = () => {
+  const userId = localStorage.getItem('userId');
+  console.log("El id de usuario es:", userId);
+
+  const [userData, setUserData] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const getUserById = async () => {
+      setIsLoading(true);
+      const response = await fetch(`http://localhost:3000/users/${userId}`);
+      const data = await response.json();
+      setUserData(data);
+      setIsLoading(false);
     };
-    console.log(updatedUser);
+    getUserById();
+  }, [userId]);
 
-    try {
-      const response = await fetch(`http://localhost:3000/users/${user._id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedUser),
-      });
-
-      if (response.ok) {
-        setEdit(false);
-      }
-    } catch (error) {
-      console.error("Error al actualizar el perfil ", error);
-    }
-  };
+  if (isLoading) {
+    return <p>Cargando perfil...</p>;
+  }
 
   return (
-    <div className="profile-menu">
-      <div className="profile-banner">
-        {edit && (
-          <input
-            type="file"
-            accept="image/*"
-            className="edit-banner"
-            onChange={(e) => setBanner(URL.createObjectURL(e.target.files[0]))}
-          />
-        )}
+    <div className='profile-container'>
+      <div className='profile-banner'>
+        <img className='banner' src={logo} alt='logo' />
+      </div>
+      <img className='avatar' src={perfil} alt='avatar' />
+
+      <div className='profile-details'>
+        <h2 className='profile-name'>{userData.name} {userData.surname}</h2>
+        <p className='profile-username'>@{userData.username}</p>
+        <p className='profile-location'> Actualizar modelo para location</p>
+        <p className='profile-bio'> Actualizar modelo para fecha de nacimiento</p>
+        <p className='profile-joined'> Se unió en {new Date(userData.createdAt).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
       </div>
 
-      <div className="profile-info">
-        <img src={profilePic} alt="profile-pic" className="profile-pic" />
-        {edit && (
-          <input
-            type="file"
-            accept="image/*"
-            className="edit-profile-pic"
-            onChange={(e) =>
-              setProfilePic(URL.createObjectURL(e.target.files[0]))
-            }
-          />
-        )}
+      <div className='profile-stats'>
+        <span><strong>{userData.followingCount}</strong> siguiendo</span>
+        <span><strong>{userData.followersCount}</strong> seguidores</span>
       </div>
 
-      <div className="user-info">
-        {edit ? (
-          <>
-            <input
-              type="text"
-              value={newName}
-              onChange={(e) => setNewName(e.target.value)}
-              className="edit-input"
-            />
-            <div>
-              <input
-                type="text"
-                value={newUsername}
-                onChange={(e) => setNewUsername(e.target.value)}
-                className="edit-input"
-              />
-              {newUsername.length > 0 && newUsername.length < 4 && (
-                <p className="error-text">
-                  El nombre de usuario debe tener al menos 4 caracteres
-                </p>
-              )}
-            </div>
-          </>
-        ) : (
-          <>
-            <h2>{user.name}</h2>
-            <p className="username">@{user.username}</p>
-          </>
-        )}
-        <p className="createdAt">Se unió en {user.createdAt}</p>
-      </div>
-      <div className="follow-info">
-        <span>
-          {user.followingCount} <span className="follow-text">Seguiendo</span>
-        </span>
-        <span>
-          {user.followersCount} <span className="follow-text">Seguidores</span>
-        </span>
-      </div>
-      <button
-        onClick={() => (edit ? handleSave() : setEdit(true))}
-        className="edit-button"
-      >
-        {edit ? "Guardar" : "Editar perfil"}
-      </button>
+      <button className='edit-profile-btn'>Editar perfil</button>
     </div>
   );
 };
 
 export default ProfileMenu;
+
+export default ProfileMenu
