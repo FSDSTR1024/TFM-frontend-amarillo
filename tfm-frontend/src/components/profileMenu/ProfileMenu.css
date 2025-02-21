@@ -1,3 +1,15 @@
+#root {
+  margin-top: 50px;
+  margin-left: 20px;
+  padding: 0;
+  text-align: center;
+}
+
+.profile-container {
+  height: 100vh;
+  padding-top: 130px;
+}
+
 .profile-banner {
   position: fixed;
   top: 1px;
@@ -36,7 +48,16 @@
 }
 
 .profile-details {
-  margin-top: 50px;
+  text-align: left;
+  margin: 0
+}
+
+.profile-name,
+.profile-username,
+.profile-location,
+.profile-bio,
+.profile-joined {
+  margin: 0;
 }
 
 .profile-name {
@@ -57,11 +78,15 @@
 }
 
 .profile-stats {
+  position: absolute;
+  top: 130px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  justify-content: flex-start;
-  gap: 15px;
-  margin-top: 10px;
-  padding-left: 20px;
+  justify-content: center;
+  gap: 20px;
+  padding: 8px 15px;
+  text-align: center;
 }
 
 .profile-stats span {
@@ -71,7 +96,7 @@
 .edit-profile-btn {
   position: absolute;
   right: 20px;
-  top: 150px;
+  top: 130px;
   padding: 5px 15px;
   font-size: 14px;
   border: 1px solid gray;
