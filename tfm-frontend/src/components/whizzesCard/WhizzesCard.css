@@ -52,6 +52,11 @@
   width: 30px;
   height: 30px;
 }
+
+.like.liked {
+  filter: invert(35%) sepia(99%) saturate(400%) hue-rotate(340deg)
+}
+
 .whizz-card-icons .re-whizz {
   width: 40px;
   height: 40px;

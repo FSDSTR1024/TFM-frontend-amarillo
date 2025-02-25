@@ -1,10 +1,10 @@
-import HeaderBar from "../components/headerBar/HeaderBar";
 import MenuBar from "../components/menuBar/MenuBar";
+import ProfileMenu from "../components/profileMenu/ProfileMenu";
 
 const Profile = () => {
     return (
       <>
-        <HeaderBar />
+        <ProfileMenu />
         <MenuBar />
       </>
     );
