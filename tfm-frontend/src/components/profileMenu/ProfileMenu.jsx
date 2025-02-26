@@ -3,10 +3,6 @@ import perfil from '../../assets/icons/perfil.svg'
 import logo from '../../assets/icons/whiz.svg'
 import './ProfileMenu.css';
 
-const cloudinary_url = 'https://api.cloudinary.com/v1_1';
-const cloudinary_upload_preset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
-const cloudinary_cloud_name = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
-
 const ProfileMenu = () => {
   const userId = localStorage.getItem('userId');
 
@@ -38,8 +34,8 @@ const ProfileMenu = () => {
       <div className='profile-details'>
         <h2 className='profile-name'>{userData.name} {userData.surname}</h2>
         <p className='profile-username'>@{userData.username}</p>
-        <p className='profile-location'> Actualizar modelo para location</p>
-        <p className='profile-bio'> Actualizar modelo para fecha de nacimiento</p>
+        <p className='profile-location'>{userData.location}</p>
+        <p className='profile-birthdate'>🎈{userData.birthdate}</p>
         <p className='profile-joined'> Se unió en {new Date(userData.createdAt).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
       </div>
 
