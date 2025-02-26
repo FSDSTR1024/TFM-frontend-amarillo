@@ -51,7 +51,7 @@
 .profile-name,
 .profile-username,
 .profile-location,
-.profile-bio,
+.profile-birthdate,
 .profile-joined {
   margin: 0;
 }
@@ -67,7 +67,7 @@
 }
 
 .profile-location,
-.profile-bio,
+.profile-birthdate,
 .profile-joined {
   font-size: 14px;
   color: gray;
