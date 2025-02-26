@@ -1,9 +1,15 @@
+.profile-container {
+  height: 100vh;
+  padding-top: 130px;
+}
+
 .profile-banner {
   position: fixed;
   top: 1px;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
+  height: 130px;
   border-radius: 36px;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
@@ -20,7 +26,8 @@
 
 .avatar {
   position: absolute;
-  top: 50px;
+  align-self: center;
+  top: 70px;
   left: 40px;
   width: 100px;
   height: 100px;
@@ -35,7 +42,17 @@
 }
 
 .profile-details {
-  margin-top: 50px;
+  text-align: left;
+  margin-top: 20px;
+  margin-right: 70px;
+}
+
+.profile-name,
+.profile-username,
+.profile-location,
+.profile-birthdate,
+.profile-joined {
+  margin: 0;
 }
 
 .profile-name {
@@ -49,18 +66,22 @@
 }
 
 .profile-location,
-.profile-bio,
+.profile-birthdate,
 .profile-joined {
   font-size: 14px;
   color: gray;
 }
 
 .profile-stats {
+  position: absolute;
+  top: 130px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  justify-content: flex-start;
-  gap: 15px;
-  margin-top: 10px;
-  padding-left: 20px;
+  justify-content: center;
+  gap: 20px;
+  padding: 8px 15px;
+  text-align: center;
 }
 
 .profile-stats span {
@@ -70,9 +91,10 @@
 .edit-profile-btn {
   position: absolute;
   right: 20px;
-  top: 150px;
+  top: 130px;
   padding: 5px 15px;
   font-size: 14px;
+  margin-top: 10px;
   border: 1px solid gray;
   border-radius: 15px;
   background: transparent;
