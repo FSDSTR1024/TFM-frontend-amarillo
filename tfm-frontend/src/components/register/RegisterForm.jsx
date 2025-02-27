@@ -47,6 +47,8 @@ const RegisterForm = () => {
           password: data.password,
           name: data.name,
           surname: data.surname,
+          birthdate: data.birthdate,
+          location: data.location,
         }),
       });
 
@@ -56,6 +58,23 @@ const RegisterForm = () => {
 
       const result = await response.json();
       console.log(result);
+      const emailResponse = await fetch(
+        "http://localhost:3000/email/send-email",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email: data.email, name: data.name }),
+        }
+      );
+
+      if (!emailResponse.ok) {
+        console.error("Error al enviar el correo de bienvenida");
+      } else {
+        console.log("Correo de bienvenida enviado con éxito");
+      }
+
       navigate("/");
     } catch (error) {
       console.error(error);
@@ -164,9 +183,7 @@ const RegisterForm = () => {
           <p className="error">{errors.confirmPassword.message}</p>
         )}
 
-        <label htmlFor="name">
-          Nombre ( tu nombre real, solo se mostrará en tu perfil si lo deseas )
-        </label>
+        <label htmlFor="name">Nombre ( tu nombre real )</label>
         <input
           type="text"
           placeholder="Nombre"
@@ -193,6 +210,51 @@ const RegisterForm = () => {
           })}
         />
         {errors.surname && <p className="error">{errors.surname.message}</p>}
+
+        <label htmlFor="birthdate">Fecha de nacimiento:</label>
+        <input
+          type="date"
+          placeholder="Fecha de nacimiento"
+          {...register("birthdate", {
+            required: "Este campo es obligatorio",
+          })}
+        />
+        {errors.birthdate && (
+          <p className="error">{errors.birthdate.message}</p>
+        )}
+
+        <label htmlFor="location">Ubicación:</label>
+        <select
+          {...register("location", {
+            required: "Este campo es obligatorio",
+          })}
+        >
+          <option value="">Selecciona un país</option>
+          <option value="Argentina">Argentina</option>
+          <option value="Bolivia">Bolivia</option>
+          <option value="Chile">Chile</option>
+          <option value="Colombia">Colombia</option>
+          <option value="Costa Rica">Costa Rica</option>
+          <option value="Cuba">Cuba</option>
+          <option value="Ecuador">Ecuador</option>
+          <option value="El Salvador">El Salvador</option>
+          <option value="España">España</option>
+          <option value="Estados Unidos">Estados Unidos</option>
+          <option value="Guatemala">Guatemala</option>
+          <option value="Guinea Ecuatorial">Guinea Ecuatorial</option>
+          <option value="Honduras">Honduras</option>
+          <option value="México">México</option>
+          <option value="Nicaragua">Nicaragua</option>
+          <option value="Panamá">Panamá</option>
+          <option value="Paraguay">Paraguay</option>
+          <option value="Perú">Perú</option>
+          <option value="Puerto Rico">Puerto Rico</option>
+          <option value="República Dominicana">República Dominicana</option>
+          <option value="Uruguay">Uruguay</option>
+          <option value="Venezuela">Venezuela</option>
+        </select>
+
+        {errors.location && <p className="error">{errors.location.message}</p>}
 
         <button type="submit">Registrarte</button>
         <p className="switch-form">

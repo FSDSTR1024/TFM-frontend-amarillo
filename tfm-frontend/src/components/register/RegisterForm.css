@@ -40,7 +40,14 @@
   background: rgba(255, 255, 255, 0.01);
   backdrop-filter: blur(10px);
 }
-
+.register-form select {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.01);
+  backdrop-filter: blur(10px);
+}
 .register-form button {
   padding: 0.7rem;
   font-size: 1rem;
