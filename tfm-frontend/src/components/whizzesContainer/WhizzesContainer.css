@@ -7,3 +7,22 @@
   padding: 0;
   width: 98%;
 }
+
+.new-whizzes-btn {
+  display: block;
+  width: 60%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #1d9bf0;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 36px;
+  cursor: pointer;
+  align-self: center;
+}
+
+.ver-nuevos-btn:hover {
+  background-color: #0d8ae5;
+}

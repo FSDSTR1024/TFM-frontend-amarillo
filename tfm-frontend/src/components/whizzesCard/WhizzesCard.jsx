@@ -5,11 +5,14 @@ import comment from "../../assets/icons/comentario-alt.svg";
 import reWhizz from "../../assets/icons/retuit-de-flechas.svg";
 import send from "../../assets/icons/send.svg";
 import "./WhizzesCard.css";
+import { useNavigate } from "react-router";
 
 export const WhizzesCard = ({ whizz, updateWhizz }) => {
-  const userId = localStorage.getItem("userId"); // Obtener el ID del usuario logueado
+  const userId = localStorage.getItem("userId");
+  const navigate = useNavigate();
   const [likesCount, setLikesCount] = useState(whizz.likesCount);
   const [liked, setLiked] = useState(whizz.likedBy.includes(userId));
+  const [rewhizzesCount, setReWhizzesCount] = useState(whizz.rewhizzesCount);
 
   // Sincroniza el estado de "liked" cuando se actualiza el whizz
   useEffect(() => {
@@ -40,10 +43,40 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
     }
   };
 
+  const handleReWhizz = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/whizzes/${whizz._id}/rewhizz`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al hacer rewhizz');
+      }
+      navigate('/whizzes', { state: { quotedWhizz: whizz } });
+      const updatedWhizz = await response.json();
+
+      setReWhizzesCount(updatedWhizz.rewhizzesCount);
+      updateWhizz(updatedWhizz);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="whizz-card">
       <h4>@{whizz.user?.username}</h4>
       <p>{whizz.content}</p>
+
+      {whizz.inReWhizzTo && (
+        <div className="quoted-whizz-container">
+          <p className="quoted-user">🔁 @{whizz.inReWhizzTo.user?.username}</p>
+          <p className="quoted-content">{whizz.inReWhizzTo.content}</p>
+        </div>
+      )}
 
       {whizz.media && whizz.media.length > 0 && (
         <div className="whizz-card-media">
@@ -75,9 +108,10 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
           alt="like"
           onClick={handleLike}
         />
-        <p>{likesCount}</p>
+        <p className="likes-count">{likesCount}</p>
         <img src={comment} alt="comment" />
-        <img className="re-whizz" src={reWhizz} alt="reWhizz" />
+        <img className="re-whizz" src={reWhizz} alt="reWhizz" onClick={handleReWhizz} />
+        <p className="rewhizzes-count">{rewhizzesCount}</p>
         <img src={send} alt="send" />
       </div>
     </div>

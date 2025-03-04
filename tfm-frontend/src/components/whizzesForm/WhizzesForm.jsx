@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import image from '../../assets/icons/imagen.svg';
 import video from '../../assets/icons/video camara.svg';
 import crear from '../../assets/icons/derecho.svg'
 import './WhizzesForm.css';
 
 const CreateWhizz = () => {
-  const [content, setContent] = useState('');
+  const location = useLocation();
+  const quotedWhizz = location.state?.quotedWhizz || null;
+  const [content, setContent] = useState(quotedWhizz ? `@${quotedWhizz.user.username}: ${quotedWhizz.content}` : "");
   const [media, setMedia] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
@@ -82,6 +84,14 @@ const CreateWhizz = () => {
   return (
     <form className="whizz-form" onSubmit={handleSubmit}>
       <textarea placeholder='Que estás pensando?' value={content} onChange={(e) => setContent(e.target.value)} rows="5" maxLength={335} />
+
+      {quotedWhizz && (
+        <div className="quoted-whizz-container">
+          <p className="quoted-user">🔁 @{quotedWhizz.user.username}</p>
+          <p className="quoted-content">{quotedWhizz.content}</p>
+        </div>
+      )}
+
       <div className="media-container">
         {media.map((url, index) => (
           <div key={index} className="media-preview">

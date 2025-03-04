@@ -80,6 +80,26 @@
   transition: background-color 0.3s ease;
 }
 
+.quoted-whizz-container {
+  margin-top: 10px;
+  padding: 10px;
+  border-left: 4px solid #1da1f2;
+  background: #f5f8fa;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #333;
+}
+
+.quoted-user {
+  font-weight: bold;
+  color: #1da1f2;
+}
+
+.quoted-content {
+  font-style: italic;
+  color: #555;
+}
+
 .whizz-form button:hover {
   filter: brightness(0) saturate(100%) invert(59%) sepia(83%) saturate(2612%) hue-rotate(172deg) brightness(97%) contrast(96%);
 }
