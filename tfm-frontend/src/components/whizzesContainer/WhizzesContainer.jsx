@@ -33,11 +33,11 @@ const WhizzesContainer = () => {
     };
   }, []);
 
-  const showNewWhizzes = () => {
+  /*const showNewWhizzes = () => {
     setWhizzes((prevWhizzes) => [...newWhizzes, ...prevWhizzes]);
     setNewWhizzes([]);
     setShowNewWhizzesBtn(false);
-  };
+  };*/
 
   const updateWhizz = (updatedWhizz) => {
     setWhizzes((prevWhizzes) =>
@@ -48,7 +48,7 @@ const WhizzesContainer = () => {
   return (
     <div className="whizzes-container">
       {showNewWhizzesBtn && (
-        <button className="new-whizzes-btn" onClick={showNewWhizzes}>
+        <button className="new-whizzes-btn" onClick={() => window.location.reload()}>
           Mostrar {newWhizzes.length} nuevos whizzes
         </button>
       )}

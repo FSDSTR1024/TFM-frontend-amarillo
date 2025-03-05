@@ -56,11 +56,13 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
       if (!response.ok) {
         throw new Error('Error al hacer rewhizz');
       }
-      navigate('/whizzes', { state: { quotedWhizz: whizz } });
       const updatedWhizz = await response.json();
 
       setReWhizzesCount(updatedWhizz.rewhizzesCount);
       updateWhizz(updatedWhizz);
+
+      navigate('/whizzes'/*, { state: { quotedWhizz: whizz } }*/);
+
     } catch (error) {
       console.error(error);
     }

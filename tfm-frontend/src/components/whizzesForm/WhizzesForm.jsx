@@ -10,6 +10,8 @@ const CreateWhizz = () => {
   const quotedWhizz = location.state?.quotedWhizz || null;
   const [content, setContent] = useState(quotedWhizz ? `@${quotedWhizz.user.username}: ${quotedWhizz.content}` : "");
   const [media, setMedia] = useState([]);
+  const [isReWhizz, setIsReWhizz] = useState(quotedWhizz ? true : false);
+  const [inReWhizzTo, setInReWhizzTo] = useState(quotedWhizz ? quotedWhizz._id : null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
@@ -61,7 +63,12 @@ const CreateWhizz = () => {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ content, media }),
+        body: JSON.stringify({
+          content,
+          media,
+          isReWhizz,
+          inReWhizzTo
+        }),
       });
 
       if (!response.ok) {
