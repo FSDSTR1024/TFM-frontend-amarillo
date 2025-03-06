@@ -8,10 +8,10 @@ import './WhizzesForm.css';
 const CreateWhizz = () => {
   const location = useLocation();
   const quotedWhizz = location.state?.quotedWhizz || null;
-  const [content, setContent] = useState(quotedWhizz ? `@${quotedWhizz.user.username}: ${quotedWhizz.content}` : "");
+  const [content, setContent] = useState("");
   const [media, setMedia] = useState([]);
-  const [isReWhizz, setIsReWhizz] = useState(quotedWhizz ? true : false);
-  const [inReWhizzTo, setInReWhizzTo] = useState(quotedWhizz ? quotedWhizz._id : null);
+  const [isReWhizz, setIsReWhizz] = useState(!!quotedWhizz);
+  const [inReWhizzTo, setInReWhizzTo] = useState(quotedWhizz?._id || null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
@@ -90,7 +90,13 @@ const CreateWhizz = () => {
 
   return (
     <form className="whizz-form" onSubmit={handleSubmit}>
-      <textarea placeholder='Que estás pensando?' value={content} onChange={(e) => setContent(e.target.value)} rows="5" maxLength={335} />
+      <textarea
+        placeholder='Que estás pensando?'
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+        rows="5"
+        maxLength={335}
+      />
 
       {quotedWhizz && (
         <div className="quoted-whizz-container">

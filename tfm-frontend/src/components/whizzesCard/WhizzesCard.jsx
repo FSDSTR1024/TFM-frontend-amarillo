@@ -12,9 +12,8 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
   const navigate = useNavigate();
   const [likesCount, setLikesCount] = useState(whizz.likesCount);
   const [liked, setLiked] = useState(whizz.likedBy.includes(userId));
-  const [rewhizzesCount, setReWhizzesCount] = useState(whizz.rewhizzesCount);
+  const [rewhizzesCount] = useState(whizz.rewhizzesCount);
 
-  // Sincroniza el estado de "liked" cuando se actualiza el whizz
   useEffect(() => {
     setLiked(whizz.likedBy.includes(userId));
   }, [whizz, userId]);
@@ -45,23 +44,8 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
 
   const handleReWhizz = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/whizzes/${whizz._id}/rewhizz`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
 
-      if (!response.ok) {
-        throw new Error('Error al hacer rewhizz');
-      }
-      const updatedWhizz = await response.json();
-
-      setReWhizzesCount(updatedWhizz.rewhizzesCount);
-      updateWhizz(updatedWhizz);
-
-      navigate('/whizzes'/*, { state: { quotedWhizz: whizz } }*/);
+      navigate('/whizzes', { state: { quotedWhizz: whizz } });
 
     } catch (error) {
       console.error(error);

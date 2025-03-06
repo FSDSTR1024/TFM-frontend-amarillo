@@ -23,13 +23,13 @@ const WhizzesContainer = () => {
         setLoading(false);
       });
 
-    socketUrl.on("newWhiz", (newWhizz) => {
+    socketUrl.on("newWhizz", (newWhizz) => {
       setNewWhizzes((prevWhizzes) => [newWhizz, ...prevWhizzes]);
       setShowNewWhizzesBtn(true);
     });
 
     return () => {
-      socketUrl.off("newWhiz");
+      socketUrl.off("newWhizz");
     };
   }, []);
 
