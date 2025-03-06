@@ -59,7 +59,7 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
 
       {whizz.inReWhizzTo && (
         <div className="quoted-whizz-container">
-          <p className="quoted-user">🔁 @{whizz.inReWhizzTo.user?.username}</p>
+          <p className="quoted-user">@{whizz.inReWhizzTo.user?.username}</p>
           <p className="quoted-content">{whizz.inReWhizzTo.content}</p>
         </div>
       )}
@@ -88,16 +88,22 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
       )}
 
       <div className="whizz-card-icons">
-        <img
-          className="like"
-          src={liked ? corazonLleno : like}
-          alt="like"
-          onClick={handleLike}
-        />
-        <p className="likes-count">{likesCount}</p>
-        <img src={comment} alt="comment" />
-        <img className="re-whizz" src={reWhizz} alt="reWhizz" onClick={handleReWhizz} />
-        <p className="rewhizzes-count">{rewhizzesCount}</p>
+        <div className="like-container">
+          <img
+            className="like"
+            src={liked ? corazonLleno : like}
+            alt="like"
+            onClick={handleLike}
+          />
+          <p className="likes-count">{likesCount}</p>
+        </div>
+        <div className="comment-container">
+          <img src={comment} alt="comment" />
+        </div>
+        <div className="re-whizz-container">
+          <img className="re-whizz" src={reWhizz} alt="reWhizz" onClick={handleReWhizz} />
+          <p className="rewhizzes-count">{rewhizzesCount}</p>
+        </div>
         <img src={send} alt="send" />
       </div>
     </div>

@@ -10,8 +10,8 @@ const CreateWhizz = () => {
   const quotedWhizz = location.state?.quotedWhizz || null;
   const [content, setContent] = useState("");
   const [media, setMedia] = useState([]);
-  const [isReWhizz, setIsReWhizz] = useState(!!quotedWhizz);
-  const [inReWhizzTo, setInReWhizzTo] = useState(quotedWhizz?._id || null);
+  const isReWhizz = !!quotedWhizz;
+  const inReWhizzTo = quotedWhizz?._id || null;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
@@ -100,7 +100,7 @@ const CreateWhizz = () => {
 
       {quotedWhizz && (
         <div className="quoted-whizz-container">
-          <p className="quoted-user">🔁 @{quotedWhizz.user.username}</p>
+          <p className="quoted-user">@{quotedWhizz.user.username}</p>
           <p className="quoted-content">{quotedWhizz.content}</p>
         </div>
       )}
