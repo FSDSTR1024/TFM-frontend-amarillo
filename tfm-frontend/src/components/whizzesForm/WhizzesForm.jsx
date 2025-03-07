@@ -67,11 +67,15 @@ const CreateWhizz = () => {
           content,
           media,
           isReWhizz,
-          inReWhizzTo
+          inReWhizzTo,
         }),
       });
 
       if (!response.ok) {
+        console.log(response);
+        if (response.status === 404) {
+          throw new Error('Whizz original no encontrado');
+        }
         throw new Error('Error al crear el whizz');
       }
 
@@ -102,6 +106,7 @@ const CreateWhizz = () => {
         <div className="quoted-whizz-container">
           <p className="quoted-user">@{quotedWhizz.user.username}</p>
           <p className="quoted-content">{quotedWhizz.content}</p>
+          <div className='quoted-media'>{quotedWhizz.media.map((url, index) => <img key={index} src={url} alt="upload" />)}</div>
         </div>
       )}
 

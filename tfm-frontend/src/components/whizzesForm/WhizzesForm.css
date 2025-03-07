@@ -83,12 +83,13 @@
 .quoted-whizz-container {
   margin-top: 10px;
   padding: 10px;
+  border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   background: rgba(255, 255, 255, 0.05);
-  border-radius: 5px;
   font-size: 14px;
+  min-width: 300px;
 }
 
 .quoted-user {
