@@ -1,10 +1,11 @@
 import "./SearchBar.css";
 import lupa from "../../assets/icons/lupa.svg";
 import { useEffect, useState } from "react";
+
 const SearchBar = () => {
   const [search, setSearch] = useState("");
   const [results, setResults] = useState([]);
-
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const fetchUsers = async (searchTerm) => {
     if (!searchTerm) {
       setResults([]);
@@ -13,7 +14,7 @@ const SearchBar = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/users/search?q=${searchTerm}`
+        `${backendUrl}/users/search?q=${searchTerm}`
       );
 
       const data = await response.json();

@@ -12,7 +12,7 @@ const RegisterForm = () => {
   } = useForm({ mode: "onChange" });
   const navigate = useNavigate();
   const password = watch("password", "");
-
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const passwordValidations = {
     minLength: password.length >= 8,
     hasUpperCase: /[A-Z]/.test(password),
@@ -36,7 +36,7 @@ const RegisterForm = () => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await fetch("http://localhost:3000/users", {
+      const response = await fetch(`${backendUrl}/users`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -58,16 +58,13 @@ const RegisterForm = () => {
 
       const result = await response.json();
       console.log(result);
-      const emailResponse = await fetch(
-        "http://localhost:3000/email/send-email",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email: data.email, name: data.name }),
-        }
-      );
+      const emailResponse = await fetch(`${backendUrl}/email/send-email`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: data.email, name: data.name }),
+      });
 
       if (!emailResponse.ok) {
         console.error("Error al enviar el correo de bienvenida");

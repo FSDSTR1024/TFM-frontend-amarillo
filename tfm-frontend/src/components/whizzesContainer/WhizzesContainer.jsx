@@ -10,9 +10,10 @@ const WhizzesContainer = () => {
   const [newWhizzes, setNewWhizzes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showNewWhizzesBtn, setShowNewWhizzesBtn] = useState(false);
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
-    fetch("http://localhost:3000/whizzes")
+    fetch(`${backendUrl}/whizzes`)
       .then((response) => response.json())
       .then((data) => {
         setWhizzes(data);
@@ -48,7 +49,10 @@ const WhizzesContainer = () => {
   return (
     <div className="whizzes-container">
       {showNewWhizzesBtn && (
-        <button className="new-whizzes-btn" onClick={() => window.location.reload()}>
+        <button
+          className="new-whizzes-btn"
+          onClick={() => window.location.reload()}
+        >
           Mostrar {newWhizzes.length} nuevos whizzes
         </button>
       )}
@@ -56,8 +60,12 @@ const WhizzesContainer = () => {
         <p>Cargando whizzes...</p>
       ) : (
         whizzes.map((whizz) => (
-          <WhizzesCard key={whizz._id} whizz={whizz} updateWhizz={updateWhizz} />
-      ))
+          <WhizzesCard
+            key={whizz._id}
+            whizz={whizz}
+            updateWhizz={updateWhizz}
+          />
+        ))
       )}
     </div>
   );

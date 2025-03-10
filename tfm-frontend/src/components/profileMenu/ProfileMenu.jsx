@@ -5,14 +5,14 @@ import "./ProfileMenu.css";
 
 const ProfileMenu = () => {
   const userId = localStorage.getItem("userId");
-
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [userData, setUserData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const getUserById = async () => {
       setIsLoading(true);
-      const response = await fetch(`http://localhost:3000/users/${userId}`);
+      const response = await fetch(`${backendUrl}/users/${userId}`);
       const data = await response.json();
       setUserData(data);
       setIsLoading(false);

@@ -10,6 +10,7 @@ import { useNavigate } from "react-router";
 export const WhizzesCard = ({ whizz, updateWhizz }) => {
   const userId = localStorage.getItem("userId");
   const navigate = useNavigate();
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [whizzes, setWhizzes] = useState([]);
   const [likesCount, setLikesCount] = useState(whizz.likesCount);
   const [liked, setLiked] = useState(whizz.likedBy.includes(userId));
@@ -35,16 +36,16 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
 
   const handleLike = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/whizzes/${whizz._id}/like`, {
-        method: 'PUT',
+      const response = await fetch(`${backendUrl}/whizzes/${whizz._id}/like`, {
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
 
       if (!response.ok) {
-        throw new Error('Error al dar like al whizz');
+        throw new Error("Error al dar like al whizz");
       }
 
       const updatedWhizz = await response.json();
@@ -59,34 +60,33 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
 
   const handleReWhizz = async () => {
     try {
-
-      navigate('/whizzes', { state: { quotedWhizz: whizz } });
-
+      navigate("/whizzes", { state: { quotedWhizz: whizz } });
     } catch (error) {
       console.error(error);
-      if (error.message === 'Whizz original no encontrado') {
-        alert('El whizz original no se encuentra');
+      if (error.message === "Whizz original no encontrado") {
+        alert("El whizz original no se encuentra");
       }
     }
   };
 
   const handleDelete = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/whizzes/${whizz._id}`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    });
+      const response = await fetch(`${backendUrl}/whizzes/${whizz._id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
 
-    if (!response.ok) {
-      throw new Error('Error al eliminar el whizz');
+      if (!response.ok) {
+        throw new Error("Error al eliminar el whizz");
       }
 
       closeModal();
-      setWhizzes((prevWhizzes) => prevWhizzes.filter((w) => w._id !== whizz._id));
+      setWhizzes((prevWhizzes) =>
+        prevWhizzes.filter((w) => w._id !== whizz._id)
+      );
       window.location.reload();
-
     } catch (error) {
       console.error(error);
     }
@@ -100,8 +100,12 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
             <h3>¿Seguro que quieres eliminar el whizz?</h3>
             <p>Esta acción no se puede deshacer</p>
             <div className="modal-buttons">
-              <button onClick={closeModal} className="cancel-button">Cancelar</button>
-              <button onClick={handleDelete} className="delete-button">Eliminar</button>
+              <button onClick={closeModal} className="cancel-button">
+                Cancelar
+              </button>
+              <button onClick={handleDelete} className="delete-button">
+                Eliminar
+              </button>
             </div>
           </div>
         </div>
@@ -155,14 +159,24 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
             <img src={comment} alt="comment" />
           </div>
           <div className="re-whizz-container">
-            <img className="re-whizz" src={reWhizz} alt="reWhizz" onClick={handleReWhizz} />
+            <img
+              className="re-whizz"
+              src={reWhizz}
+              alt="reWhizz"
+              onClick={handleReWhizz}
+            />
             <p className="rewhizzes-count">{rewhizzesCount}</p>
           </div>
           {whizz.user._id === userId && (
-            <img className="delete-icon" src={deleteIcon} alt="delete" onClick={openModal} />
+            <img
+              className="delete-icon"
+              src={deleteIcon}
+              alt="delete"
+              onClick={openModal}
+            />
           )}
         </div>
-        </div>
-      </>
+      </div>
+    </>
   );
 };
