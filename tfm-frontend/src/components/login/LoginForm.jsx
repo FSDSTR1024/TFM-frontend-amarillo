@@ -1,22 +1,23 @@
-import { Link, useNavigate } from 'react-router-dom'
-import { useForm } from 'react-hook-form'
-import './LoginForm.css'
+import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import "./LoginForm.css";
 
 const LoginForm = () => {
   const { register, handleSubmit, formState } = useForm();
   const navigate = useNavigate();
-  const requiredMessage = 'Este campo es obligatorio';
+  const requiredMessage = "Este campo es obligatorio";
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   const onSubmit = async (data) => {
     try {
-      const response = await fetch("http://localhost:3000/users/login", {
+      const response = await fetch(`${backendUrl}/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           identifier: data.username,
-          password: data.password
+          password: data.password,
         }),
       });
 
@@ -49,20 +50,27 @@ const LoginForm = () => {
           placeholder="Nombre de usuario o email"
           {...register("username", {
             required: { value: true, message: requiredMessage },
-            minLength: { value: 4, message: 'El nombre de usuario debe tener al menos 4 caracteres' }
+            minLength: {
+              value: 4,
+              message: "El nombre de usuario debe tener al menos 4 caracteres",
+            },
           })}
         />
-        {formState.errors.username && <p className="error">{formState.errors.username.message}</p>}
+        {formState.errors.username && (
+          <p className="error">{formState.errors.username.message}</p>
+        )}
 
         <label htmlFor="password">Contraseña:</label>
         <input
           type="password"
           placeholder="Contraseña"
           {...register("password", {
-            required: { value: true, message: requiredMessage }
+            required: { value: true, message: requiredMessage },
           })}
         />
-        {formState.errors.password && <p className="error">{formState.errors.password.message}</p>}
+        {formState.errors.password && (
+          <p className="error">{formState.errors.password.message}</p>
+        )}
 
         <button type="submit">Entrar</button>
         <p className="switch-form">
@@ -70,8 +78,7 @@ const LoginForm = () => {
         </p>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default LoginForm
-
+export default LoginForm;
