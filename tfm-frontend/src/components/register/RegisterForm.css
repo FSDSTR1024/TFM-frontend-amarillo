@@ -44,6 +44,7 @@
 .input-date {
   color: white;
   text-shadow: 0 0 0 white;
+  min-height: 35px;
 }
 
 .register-form select {
