@@ -18,7 +18,7 @@ const ProfileMenu = () => {
       setIsLoading(false);
     };
     getUserById();
-  }, [userId]);
+  }, [backendUrl, userId]);
 
   if (isLoading) {
     return <p>Cargando perfil...</p>;
