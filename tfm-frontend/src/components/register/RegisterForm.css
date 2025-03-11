@@ -47,7 +47,7 @@
   min-height: 35px;
 }
 
-.input-date ::webkit-datetime-edit {
+.input-date ::-webkit-datetime-edit {
   color: white;
   text-shadow: 0 0 0 white;
   text-align: left;
