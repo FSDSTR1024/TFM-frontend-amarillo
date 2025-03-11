@@ -47,6 +47,12 @@
   min-height: 35px;
 }
 
+.input-date ::webkit-datetime-edit {
+  color: white;
+  text-shadow: 0 0 0 white;
+  text-align: left;
+}
+
 .register-form select {
   padding: 0.5rem;
   font-size: 1rem;
