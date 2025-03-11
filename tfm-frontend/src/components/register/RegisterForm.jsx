@@ -211,6 +211,7 @@ const RegisterForm = () => {
         <label htmlFor="birthdate">Fecha de nacimiento:</label>
         <input
           type="date"
+          className="input-date"
           placeholder="Fecha de nacimiento"
           {...register("birthdate", {
             required: "Este campo es obligatorio",

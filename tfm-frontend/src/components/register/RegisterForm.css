@@ -41,6 +41,11 @@
   background: transparent;
 }
 
+.input-date {
+  color: transparent;
+  text-shadow: 0 0 0 white;
+}
+
 .register-form select {
   padding: 0.5rem;
   font-size: 1rem;
