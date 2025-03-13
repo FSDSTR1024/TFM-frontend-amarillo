@@ -8,7 +8,7 @@ const socketUrl = io(import.meta.env.VITE_SOCKET_URL);
 const WhizzesContainer = () => {
   const [whizzes, setWhizzes] = useState([]);
   const [newWhizzes, setNewWhizzes] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [showNewWhizzesBtn, setShowNewWhizzesBtn] = useState(false);
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -17,11 +17,11 @@ const WhizzesContainer = () => {
       .then((response) => response.json())
       .then((data) => {
         setWhizzes(data);
-        setLoading(false);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.error("Error al cargar whizzes", error);
-        setLoading(false);
+        setIsLoading(false);
       });
 
     socketUrl.on("newWhizz", (newWhizz) => {
@@ -56,7 +56,7 @@ const WhizzesContainer = () => {
           Mostrar {newWhizzes.length} nuevos whizzes
         </button>
       )}
-      {loading ? (
+      {isLoading ? (
         <p>Cargando whizzes...</p>
       ) : (
         whizzes.map((whizz) => (

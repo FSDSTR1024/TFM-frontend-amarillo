@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import perfil from "../../assets/icons/perfil.svg";
 import logo from "../../assets/icons/whiz.svg";
 import "./ProfileMenu.css";
+import { WhizzesCard } from "../whizzesCard/WhizzesCard";
 
 const ProfileMenu = () => {
   const userId = localStorage.getItem("userId");
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [userData, setUserData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [userWhizzes, setUserWhizzes] = useState([]);
 
   useEffect(() => {
     const getUserById = async () => {
@@ -19,6 +21,17 @@ const ProfileMenu = () => {
     };
     getUserById();
   }, [backendUrl, userId]);
+
+  useEffect(() => {
+    fetch(`${backendUrl}/whizzes/user/${userId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setUserWhizzes(data);
+      })
+      .catch((error) => {
+        console.error("Error al cargar whizzes", error);
+      });
+  }, []);
 
   if (isLoading) {
     return <p>Cargando perfil...</p>;
@@ -59,6 +72,15 @@ const ProfileMenu = () => {
       </div>
 
       <button className="edit-profile-btn">Editar perfil</button>
+      <div className="profile-whizzes">
+        {isLoading ? (
+          <p>Cargando whizzes...</p>
+        ) : (
+          userWhizzes.map((whizz) => (
+            <WhizzesCard key={whizz._id} whizz={whizz} />
+          ))
+        )}
+      </div>
     </div>
   );
 };
