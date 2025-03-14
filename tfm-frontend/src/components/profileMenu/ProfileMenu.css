@@ -114,3 +114,16 @@
   background: transparent;
   cursor: pointer;
 }
+
+.wedos-btn {
+  position: absolute;
+  right: 20px;
+  top: 150px;
+  padding: 5px 15px;
+  font-size: 14px;
+  margin-top: 10px;
+  border: 1px solid gray;
+  border-radius: 15px;
+  background: transparent;
+  cursor: pointer;
+}
