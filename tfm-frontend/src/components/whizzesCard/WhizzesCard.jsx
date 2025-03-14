@@ -6,28 +6,19 @@ import reWhizz from "../../assets/icons/retuit-de-flechas.svg";
 import deleteIcon from "../../assets/icons/rectangulo-xmark.svg";
 import "./WhizzesCard.css";
 import { useNavigate } from "react-router";
+import { Modal } from "../modal/Modal";
 
 export const WhizzesCard = ({ whizz, updateWhizz }) => {
   const userId = localStorage.getItem("userId");
   const navigate = useNavigate();
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
-  const [whizzes, setWhizzes] = useState([]);
   const [likesCount, setLikesCount] = useState(whizz.likesCount);
   const [liked, setLiked] = useState(whizz.likedBy.includes(userId));
   const [rewhizzesCount] = useState(whizz.rewhizzesCount);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isClosing, setIsClosing] = useState(false);
 
   const openModal = () => {
     setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setTimeout(() => {
-      setIsModalOpen(false);
-      setIsClosing(false);
-    }, 300);
   };
 
   useEffect(() => {
@@ -82,10 +73,8 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
         throw new Error("Error al eliminar el whizz");
       }
 
-      closeModal();
-      setWhizzes((prevWhizzes) =>
-        prevWhizzes.filter((w) => w._id !== whizz._id)
-      );
+      setIsModalOpen(false);
+
       window.location.reload();
     } catch (error) {
       console.error(error);
@@ -94,22 +83,15 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
 
   return (
     <>
-      {isModalOpen && (
-        <div className={`modal-overlay ${isClosing ? "closing" : ""}`}>
-          <div className={`modal-content ${isClosing ? "closing" : ""}`}>
-            <h3>¿Seguro que quieres eliminar el whizz?</h3>
-            <p>Esta acción no se puede deshacer</p>
-            <div className="modal-buttons">
-              <button onClick={closeModal} className="cancel-button">
-                Cancelar
-              </button>
-              <button onClick={handleDelete} className="delete-button">
-                Eliminar
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={handleDelete}
+        title="Eliminar Whizz"
+        message="¿Estás seguro de que quieres eliminar este whizz? Esta acción no se puede deshacer."
+        confirmText="Eliminar"
+        cancelText="Cancelar"
+      />
 
       <div className="whizz-card">
         <h4>@{whizz.user?.username}</h4>

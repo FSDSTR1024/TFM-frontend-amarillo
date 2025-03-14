@@ -1,5 +1,4 @@
 .profile-container {
-  height: 100vh;
   padding-top: 130px;
 }
 
@@ -89,7 +88,21 @@
   font-size: 14px;
 }
 
-.edit-profile-btn {
+.profile-whizzes {
+  margin-bottom: 90px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0;
+  width: 98%;
+}
+
+.balloon {
+  width: 15px;
+  height: 15px;
+}
+
+.logout-btn {
   position: absolute;
   right: 20px;
   top: 115px;

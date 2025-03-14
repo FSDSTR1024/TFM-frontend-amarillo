@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import perfil from "../../assets/icons/perfil.svg";
 import logo from "../../assets/icons/whiz.svg";
+import globo from "../../assets/icons/globos.svg";
 import "./ProfileMenu.css";
 import { WhizzesCard } from "../whizzesCard/WhizzesCard";
+import { useNavigate } from "react-router";
+import { Modal } from "../modal/Modal";
 
 const ProfileMenu = () => {
   const userId = localStorage.getItem("userId");
@@ -10,6 +13,12 @@ const ProfileMenu = () => {
   const [userData, setUserData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [userWhizzes, setUserWhizzes] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
 
   useEffect(() => {
     const getUserById = async () => {
@@ -31,13 +40,31 @@ const ProfileMenu = () => {
       .catch((error) => {
         console.error("Error al cargar whizzes", error);
       });
-  }, []);
+  },);
 
   if (isLoading) {
     return <p>Cargando perfil...</p>;
   }
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    navigate("/");
+  }
+
+
   return (
+    <>
+    <Modal
+      isOpen={isModalOpen}
+      onClose={() => setIsModalOpen(false)}
+      onConfirm={handleLogout}
+      title="Cerrar sesión"
+      message="¿Seguro que quieres cerrar sesión?"
+      confirmText="Cerrar sesión"
+      cancelText="Cancelar"
+/>
+
     <div className="profile-container">
       <div className="profile-banner">
         <img className="banner" src={logo} alt="logo" />
@@ -50,7 +77,7 @@ const ProfileMenu = () => {
         </h2>
         <p className="profile-username">@{userData.username}</p>
         <p className="profile-location">{userData.location}</p>
-        <p className="profile-birthdate">🎈{userData.birthdate}</p>
+        <p className="profile-birthdate"><img className="balloon" src={globo} alt="globo" /> {userData.birthdate}</p>
         <p className="profile-joined">
           {" "}
           Se unió en{" "}
@@ -71,17 +98,18 @@ const ProfileMenu = () => {
         </span>
       </div>
 
-      <button className="edit-profile-btn">Editar perfil</button>
-      <div className="profile-whizzes">
-        {isLoading ? (
-          <p>Cargando whizzes...</p>
-        ) : (
-          userWhizzes.map((whizz) => (
-            <WhizzesCard key={whizz._id} whizz={whizz} />
-          ))
-        )}
-      </div>
+      <button className="logout-btn" onClick={openModal}>Cerrar sesión</button>
     </div>
+    <div className="profile-whizzes">
+    {isLoading ? (
+      <p>Cargando whizzes...</p>
+    ) : (
+      userWhizzes.map((whizz) => (
+        <WhizzesCard key={whizz._id} whizz={whizz} />
+      ))
+    )}
+  </div>
+  </>
   );
 };
 
