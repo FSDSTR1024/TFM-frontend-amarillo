@@ -9,7 +9,6 @@ import { Modal } from "../modal/Modal";
 
 const ProfileMenu = () => {
   const userId = localStorage.getItem("userId");
-  const wedosId = "67cf591f7c6414deee865558";
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [userData, setUserData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -65,12 +64,6 @@ const ProfileMenu = () => {
       confirmText="Cerrar sesión"
       cancelText="Cancelar"
       />
-
-      {userId === wedosId && (
-        <button onClick={() => alert("Este botón es solo para ti. No hace nada más")} className="wedos-btn">
-          Botón especial para Wedos
-        </button>)}
-
 
     <div className="profile-container">
       <div className="profile-banner">
