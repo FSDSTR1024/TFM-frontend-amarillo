@@ -19,23 +19,26 @@
 }
 
 .banner {
-  width: 100px;
-  height: 100px;
+  width: 100%;
+  height: 115px;
+  object-fit: cover;
+  border-radius: 36px;
 }
 
-.avatar {
+.profile-picture {
   position: absolute;
   align-self: center;
   top: 70px;
   left: 40px;
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
   border-radius: 50%;
   border: 2px solid white;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 3px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 1100;
 }
@@ -106,19 +109,6 @@
   position: absolute;
   right: 20px;
   top: 115px;
-  padding: 5px 15px;
-  font-size: 14px;
-  margin-top: 10px;
-  border: 1px solid gray;
-  border-radius: 15px;
-  background: transparent;
-  cursor: pointer;
-}
-
-.wedos-btn {
-  position: absolute;
-  right: 20px;
-  top: 150px;
   padding: 5px 15px;
   font-size: 14px;
   margin-top: 10px;
