@@ -29,7 +29,6 @@
 
 .header-bar a {
   display: flex;
-  margin-right: 20px;
 }
 
 .header-bar img {
@@ -61,7 +60,7 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  margin-left: 20px; ;
+  margin-left: 20px;
 }
 
 h1 {
@@ -73,8 +72,19 @@ h1 {
 }
 
 .perfil {
-  margin-left: auto;
-  padding: 0;
+  align-self: center;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid white;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1100;
+  cursor: pointer;
 }
 
 .perfil:hover {

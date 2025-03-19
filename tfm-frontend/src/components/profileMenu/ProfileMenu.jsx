@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import perfil from "../../assets/icons/perfil.svg";
+import perfil from "../../assets/icons/usuario-arriba.svg";
 import logo from "../../assets/icons/whiz.svg";
 import globo from "../../assets/icons/globos.svg";
 import "./ProfileMenu.css";
