@@ -5,13 +5,14 @@
   transform: translateX(-50%);
   width: 98%;
   border-radius: 36px;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 1000;
 }
+
 .search-bar {
   height: 80px;
   display: flex;
