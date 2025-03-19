@@ -110,6 +110,30 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
         <h4>@{whizz.user?.username}</h4>
         <p>{whizz.content}</p>
 
+        {whizz.media && whizz.media.length > 0 && (
+          <div className="whizz-card-media">
+            {whizz.media.map((url, index) =>
+              url.includes("image", "video") ? (
+                <img
+                  key={index}
+                  src={url}
+                  alt="whizzes media"
+                  className="whizz-image"
+                  onClick={() => setSelectedImage(url)}
+                />
+              ) : (
+                <video
+                  key={index}
+                  src={url}
+                  alt="whizzes media"
+                  className="whizz-video"
+                  controls
+                />
+              )
+            )}
+          </div>
+        )}
+
         {whizz.inReWhizzTo && (
           <div className="quoted-whizz-container">
             <p className="quoted-user">@{whizz.inReWhizzTo.user?.username}</p>
@@ -135,30 +159,6 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
                 )
               )}
             </div>
-          </div>
-        )}
-
-        {whizz.media && whizz.media.length > 0 && (
-          <div className="whizz-card-media">
-            {whizz.media.map((url, index) =>
-              url.includes("image", "video") ? (
-                <img
-                  key={index}
-                  src={url}
-                  alt="whizzes media"
-                  className="whizz-image"
-                  onClick={() => setSelectedImage(url)}
-                />
-              ) : (
-                <video
-                  key={index}
-                  src={url}
-                  alt="whizzes media"
-                  className="whizz-video"
-                  controls
-                />
-              )
-            )}
           </div>
         )}
 

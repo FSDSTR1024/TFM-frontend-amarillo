@@ -160,10 +160,13 @@ const ProfileMenu = () => {
           <p className="profile-location">{userData.location}</p>
           <p className="profile-birthdate">
             <img className="balloon" src={globo} alt="globo" />{" "}
-            {userData.birthdate}
+            {new Date(userData.birthdate).toLocaleDateString("es-ES", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
           </p>
           <p className="profile-joined">
-            {" "}
             Se unió en{" "}
             {new Date(userData.createdAt).toLocaleDateString("es-ES", {
               year: "numeric",
