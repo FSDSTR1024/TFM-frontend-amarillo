@@ -1,5 +1,5 @@
 .profile-container {
-  padding-top: 130px;
+  padding-top: 150px;
 }
 
 .profile-banner {
@@ -29,7 +29,7 @@
   position: absolute;
   align-self: center;
   top: 70px;
-  left: 40px;
+  left: 5px;
   width: 100px;
   height: 100px;
   object-fit: cover;
@@ -107,11 +107,12 @@
 
 .logout-btn {
   position: absolute;
-  right: 20px;
+  right: 5px;
   top: 115px;
-  padding: 5px 15px;
+  padding: 5px;
   font-size: 14px;
   margin-top: 10px;
+
   border: 1px solid gray;
   border-radius: 15px;
   background: transparent;
