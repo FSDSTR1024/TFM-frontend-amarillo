@@ -34,12 +34,6 @@ const WhizzesContainer = () => {
     };
   }, []);
 
-  /*const showNewWhizzes = () => {
-    setWhizzes((prevWhizzes) => [...newWhizzes, ...prevWhizzes]);
-    setNewWhizzes([]);
-    setShowNewWhizzesBtn(false);
-  };*/
-
   const updateWhizz = (updatedWhizz) => {
     setWhizzes((prevWhizzes) =>
       prevWhizzes.map((w) => (w._id === updatedWhizz._id ? updatedWhizz : w))

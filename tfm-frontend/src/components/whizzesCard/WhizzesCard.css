@@ -53,6 +53,12 @@
   height: 80px;
   border-radius: 10px;
   padding: 5px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.whizz-image:hover {
+  transform: scale(1.1);
 }
 
 .whizz-video {
@@ -128,6 +134,32 @@
   padding: 10px;
   margin-right: 10px;
   cursor: pointer;
+}
+
+.image-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.image-modal-content {
+  max-width: 90%;
+  max-height: 90%;
+  overflow: hidden;
+}
+
+.image-modal-content img {
+  width: 100%;
+  height: auto;
+  max-height: 90vh;
+  border-radius: 10px;
 }
 
 .like.liked {
