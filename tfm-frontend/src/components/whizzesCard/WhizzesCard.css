@@ -201,6 +201,10 @@
   overflow-y: hidden;
 }
 
+.reply-input-container::-webkit-scrollbar {
+  display: none;
+}
+
 .reply-input-container textarea {
   font-family: Poppins, system-ui, Avenir, Helvetica, Arial, sans-serif;
   padding: 0.8rem;
