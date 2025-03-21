@@ -4,6 +4,8 @@ import corazonLleno from "../../assets/icons/corazon lleno.svg";
 import comment from "../../assets/icons/comentario-alt.svg";
 import reWhizz from "../../assets/icons/retuit-de-flechas.svg";
 import deleteIcon from "../../assets/icons/rectangulo-xmark.svg";
+import sendIcon from "../../assets/icons/send.svg";
+import cancelIcon from "../../assets/icons/rectangulo-xmark.svg";
 import "./WhizzesCard.css";
 import { useNavigate } from "react-router";
 import { Modal } from "../modal/Modal";
@@ -15,7 +17,12 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [likesCount, setLikesCount] = useState(whizz.likesCount);
   const [liked, setLiked] = useState(whizz.likedBy.includes(userId));
-  const [rewhizzesCount] = useState(whizz.rewhizzesCount);
+  const rewhizzesCount = whizz.rewhizzesCount;
+  const repliesCount = whizz.repliesCount;
+  const [showReplyInput, setShowReplyInput] = useState(false);
+  const [replyContent, setReplyContent] = useState("");
+  const [replies, setReplies] = useState([]);
+  const [showReplies, setShowReplies] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -83,6 +90,59 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
     }
   };
 
+  const toggleReplyInput = () => {
+    setShowReplyInput(!showReplyInput);
+  };
+
+  const handleReply = async () => {
+    if (!replyContent.trim()) return;
+
+    try {
+      const response = await fetch(`${backendUrl}/replies/${whizz._id}/reply`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({ content: replyContent }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error al responder al whizz");
+      }
+
+      const newReply = await response.json();
+
+      setReplies([...replies, newReply]);
+      setReplyContent(" ");
+      setShowReplyInput(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getReplies = async () => {
+    try {
+      const response = await fetch(`${backendUrl}/replies/${whizz._id}/replies`);
+
+      if (!response.ok) {
+        throw new Error("Error al obtener las respuestas");
+      }
+
+      const data = await response.json();
+      setReplies(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleShowReplies = () => {
+    if (!showReplies) {
+      getReplies();
+    }
+    setShowReplies(!showReplies);
+  };
+
   const scrollToWhizz = () => {
     const quotedWhizz = whizz.inReWhizzTo._id;
     const quotedWhizzElement = document.getElementById(quotedWhizz);
@@ -106,7 +166,7 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
         cancelText="Cancelar"
       />
 
-      <div id={whizz._id} className="whizz-card">
+      <div id={whizz._id} className="whizz-card" >
         <h4>@{whizz.user?.username}</h4>
         <p>{whizz.content}</p>
 
@@ -177,8 +237,10 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
             <p className="likes-count">{likesCount}</p>
           </div>
           <div className="comment-container">
-            <img src={comment} alt="comment" />
+            <img src={comment} alt="comment"  onClick={toggleReplyInput}/>
+            <p className="comments-count">{repliesCount}</p>
           </div>
+
           <div className="re-whizz-container">
             <img
               className="re-whizz"
@@ -197,6 +259,38 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
             />
           )}
         </div>
+
+        {showReplyInput && (
+            <div className="reply-input-container">
+              <img className="cancel-icon" src={cancelIcon} alt="cancel" onClick={toggleReplyInput} />
+              <textarea
+                type="text"
+                placeholder="Escribe tu respuesta..."
+                value={replyContent}
+                onChange={(e) => setReplyContent(e.target.value)}
+                rows="5"
+                maxLength={335}
+              />
+              <img className="send-icon" src={sendIcon} alt="send" onClick={handleReply} />
+            </div>
+          )}
+
+        {repliesCount > 0 && (
+          <div className="show-whizz-replies">
+            <p onClick={handleShowReplies}>{showReplies ? "Ocultar respuestas" : "Ver respuestas"}
+            </p>
+
+            {showReplies && (
+              <div className="replies-container">
+                {replies.map((reply) => (
+                  <div key={reply._id} className="reply">
+                    <p><strong>@{reply.user.username}</strong> {reply.content}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </>
   );

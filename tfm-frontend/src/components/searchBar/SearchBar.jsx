@@ -1,6 +1,7 @@
 import "./SearchBar.css";
 import lupa from "../../assets/icons/lupa.svg";
 import { useEffect, useState } from "react";
+import perfil from "../../assets/icons/usuario-arriba.svg";
 
 const SearchBar = () => {
   const [search, setSearch] = useState("");
@@ -51,8 +52,8 @@ const SearchBar = () => {
           <ul className="search-list">
             {results.map((user) => (
               <li key={user.username}>
-                {/*<img src={user.profilePicture} alt="avatar" />*/}
-                {user.username}
+                <img className="avatar" src={user.profilePicture || perfil} />
+                @{user.username}
               </li>
             ))}
           </ul>

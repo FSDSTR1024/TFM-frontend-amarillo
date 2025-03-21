@@ -176,3 +176,68 @@
   filter: brightness(0) saturate(100%) invert(59%) sepia(83%) saturate(2612%)
     hue-rotate(172deg) brightness(97%) contrast(96%);
 }
+
+.show-whizz-replies {
+  margin-top: 5px;
+  align-self: flex-start;
+  filter: brightness(0) saturate(100%) invert(75%) sepia(5%) saturate(10%) hue-rotate(0deg) brightness(90%) contrast(90%);
+  overflow-x: hidden;
+}
+
+.reply-input-container {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  padding: 0.8rem;
+  font-size: 1.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 36px;
+  background-color: transparent;
+  width: 100%;
+  max-height: 80px;
+  resize: none;
+  flex-grow: 1;
+  overflow-x: hidden;
+}
+
+.reply-input-container textarea {
+  font-family: Poppins, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: none;
+  background-color: transparent;
+  margin-top: 10px;
+  width: 100%;
+  resize: none;
+  max-height: 68px;
+  flex-grow: 1;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width: none;
+}
+
+.reply-input-container textarea::-webkit-scrollbar {
+  display: none;
+}
+
+.reply-input-container textarea:focus {
+  outline: none;
+}
+
+.send-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.cancel-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.reply-input-container img:hover {
+  scale: calc(1.1);
+  cursor: pointer;
+  filter: brightness(0) saturate(100%) invert(59%) sepia(83%) saturate(2612%)
+    hue-rotate(172deg) brightness(97%) contrast(96%);
+  overflow-x: hidden;
+}

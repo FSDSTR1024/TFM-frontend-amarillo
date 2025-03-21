@@ -28,6 +28,7 @@
 }
 
 .search-bar input {
+  font-family: Poppins, system-ui, Avenir, Helvetica, Arial, sans-serif;
   flex-grow: 1;
   font-size: 1.2rem;
   padding: 10px;
@@ -55,6 +56,13 @@
   display: flex;
   gap: 10px;
   cursor: pointer;
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  align-self: center;
 }
 
 .search-results:hover {

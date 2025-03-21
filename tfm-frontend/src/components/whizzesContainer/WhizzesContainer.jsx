@@ -32,7 +32,7 @@ const WhizzesContainer = () => {
     return () => {
       socketUrl.off("newWhizz");
     };
-  }, []);
+  }, [ backendUrl]);
 
   const updateWhizz = (updatedWhizz) => {
     setWhizzes((prevWhizzes) =>

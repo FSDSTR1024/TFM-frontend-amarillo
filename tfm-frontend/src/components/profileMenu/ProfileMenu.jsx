@@ -56,7 +56,7 @@ const ProfileMenu = () => {
       }
     };
     fetchUserData();
-  }, []);
+  }, [ userId, backendUrl ]);
 
   if (isLoading) {
     return <p>Cargando perfil...</p>;
