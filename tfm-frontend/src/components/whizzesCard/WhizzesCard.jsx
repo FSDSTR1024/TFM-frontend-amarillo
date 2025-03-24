@@ -25,10 +25,21 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
   const [replies, setReplies] = useState([]);
   const [showReplies, setShowReplies] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeletingWhizz, setIsDeletingWhizz] = useState(true);
+  const [deletingReplyId, setIsDeletingReplyId] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const openModal = () => {
+  const openDeleteWhizzModal = () => {
+    setIsDeletingWhizz(true);
     setIsModalOpen(true);
+  };
+
+  const openDeleteReplyModal = (replyId) => {
+    return () => {;
+    setIsDeletingWhizz(false);
+    setIsDeletingReplyId(replyId);
+    setIsModalOpen(true);
+    };
   };
 
   useEffect(() => {
@@ -72,7 +83,12 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
 
   const handleDelete = async () => {
     try {
-      const response = await fetch(`${backendUrl}/whizzes/${whizz._id}`, {
+
+      let url = isDeletingWhizz
+        ? `${backendUrl}/whizzes/${whizz._id}`
+        : `${backendUrl}/replies/${deletingReplyId}`
+
+      const response = await fetch(url, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -80,12 +96,17 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
       });
 
       if (!response.ok) {
-        throw new Error("Error al eliminar el whizz");
+        throw new Error("Error al eliminar");
       }
 
       setIsModalOpen(false);
 
-      window.location.reload();
+      if (isDeletingWhizz) {
+        window.location.reload();
+      } else {
+        setReplies(replies.filter((reply) => reply._id !== deletingReplyId));
+        window.location.reload();
+      }
     } catch (error) {
       console.error(error);
     }
@@ -162,8 +183,10 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onConfirm={handleDelete}
-        title="Eliminar Whizz"
-        message="¿Estás seguro de que quieres eliminar este whizz? Esta acción no se puede deshacer."
+        title= {isDeletingWhizz ? "Eliminar Whizz" : "Eliminar Respuesta"}
+        message={isDeletingWhizz
+          ? "¿Estás seguro de eliminar este whizz? Esta acción no se puede deshacer"
+          :  "¿Estás seguro de eliminar esta respuesta? Esta acción no se puede deshacer"}
         confirmText="Eliminar"
         cancelText="Cancelar"
       />
@@ -198,7 +221,7 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
 
         {whizz.inReWhizzTo && (
           <div className="quoted-whizz-container">
-            <p className="quoted-user"><img className="whizz-card-img" src={whizz.user?.profilePicture || perfil} alt=""></img>@{whizz.inReWhizzTo.user?.username}</p>
+            <p className="quoted-user"><img className="whizz-card-img" src={whizz.inReWhizzTo.user?.profilePicture || perfil} alt=""></img>@{whizz.inReWhizzTo.user?.username}</p>
             <p className="quoted-content">{whizz.inReWhizzTo.content}</p>
             <div className="quoted-whizz-media">
               {whizz.inReWhizzTo.media.map((url, index) =>
@@ -257,7 +280,7 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
               className="delete-icon"
               src={deleteIcon}
               alt="delete"
-              onClick={openModal}
+              onClick={openDeleteWhizzModal}
             />
           )}
         </div>
@@ -287,6 +310,12 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
                 {replies.map((reply) => (
                   <div key={reply._id} className="reply">
                     <p><strong className="reply-user"><img className="reply-user-icon" src={reply.userId.profilePicture || perfil}></img>@{reply.userId.username}</strong> {reply.content}</p>
+                    {reply.userId._id === userId && (
+                      <p
+                        className="delete-reply-icon"
+                        onClick={openDeleteReplyModal(reply._id)}
+                      >Eliminar respuesta</p>
+                    )}
                   </div>
                 ))}
               </div>

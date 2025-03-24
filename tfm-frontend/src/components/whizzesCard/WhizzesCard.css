@@ -293,3 +293,9 @@
   border-radius: 50%;
   border: 3px solid rgba(255, 255, 255, 0.2);
 }
+
+.replies-container .delete-reply-icon {
+  font-size: small;
+  cursor: pointer;
+  filter: brightness(0) saturate(100%) invert(75%) sepia(5%) saturate(10%) hue-rotate(0deg) brightness(90%) contrast(90%);
+}
