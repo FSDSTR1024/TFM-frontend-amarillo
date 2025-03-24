@@ -116,6 +116,7 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
       setReplies([...replies, newReply]);
       setReplyContent(" ");
       setShowReplyInput(false);
+      window.location.reload();
     } catch (error) {
       console.error(error);
     }
@@ -130,7 +131,7 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
       }
 
       const data = await response.json();
-      setReplies(data);
+      setReplies(data.replies);
     } catch (error) {
       console.error(error);
     }
@@ -167,7 +168,7 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
       />
 
       <div id={whizz._id} className="whizz-card" >
-        <h4>@{whizz.user?.username}</h4>
+        <h4 className="whizz-card-user"><img className="whizz-card-img" src={whizz.user?.profilePicture} alt=""></img>@{whizz.user?.username}</h4>
         <p>{whizz.content}</p>
 
         {whizz.media && whizz.media.length > 0 && (
@@ -196,7 +197,7 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
 
         {whizz.inReWhizzTo && (
           <div className="quoted-whizz-container">
-            <p className="quoted-user">@{whizz.inReWhizzTo.user?.username}</p>
+            <p className="quoted-user"><img className="whizz-card-img" src={whizz.user?.profilePicture} alt=""></img>@{whizz.inReWhizzTo.user?.username}</p>
             <p className="quoted-content">{whizz.inReWhizzTo.content}</p>
             <div className="quoted-whizz-media">
               {whizz.inReWhizzTo.media.map((url, index) =>
@@ -277,14 +278,14 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
 
         {repliesCount > 0 && (
           <div className="show-whizz-replies">
-            <p onClick={handleShowReplies}>{showReplies ? "Ocultar respuestas" : "Ver respuestas"}
+            <p className="show-replies-btn" onClick={handleShowReplies}>{showReplies ? "Ocultar respuestas" : "Ver respuestas"}
             </p>
 
             {showReplies && (
               <div className="replies-container">
                 {replies.map((reply) => (
                   <div key={reply._id} className="reply">
-                    <p><strong>@{reply.user.username}</strong> {reply.content}</p>
+                    <p><strong className="reply-user"><img className="reply-user-icon" src={reply.userId.profilePicture}></img>@{reply.userId.username}</strong> {reply.content}</p>
                   </div>
                 ))}
               </div>

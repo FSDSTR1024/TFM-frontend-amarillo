@@ -2,11 +2,13 @@ import "./SearchBar.css";
 import lupa from "../../assets/icons/lupa.svg";
 import { useEffect, useState } from "react";
 import perfil from "../../assets/icons/usuario-arriba.svg";
+import { useNavigate } from "react-router";
 
 const SearchBar = () => {
   const [search, setSearch] = useState("");
   const [results, setResults] = useState([]);
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  const navigate = useNavigate();
   const fetchUsers = async (searchTerm) => {
     if (!searchTerm) {
       setResults([]);
@@ -51,7 +53,7 @@ const SearchBar = () => {
         {results.length > 0 && (
           <ul className="search-list">
             {results.map((user) => (
-              <li key={user.username}>
+              <li key={user.username} onClick={() => navigate(`/profile`)}>
                 <img className="avatar" src={user.profilePicture || perfil} />
                 @{user.username}
               </li>

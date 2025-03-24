@@ -24,7 +24,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 36px;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
@@ -35,10 +35,22 @@
   margin-top: 20px;
   position: relative;
 }
-.whizz-card h4 {
+.whizz-card-user {
   margin: 0;
   color: #11a4ff;
+  display:flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 5px;
 }
+
+.whizz-card-img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+}
+
 .whizz-card p {
   margin: 5px 0;
   font-size: 16px;
@@ -87,6 +99,12 @@
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.quoted-user {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .modal-overlay {
@@ -180,8 +198,12 @@
 .show-whizz-replies {
   margin-top: 5px;
   align-self: flex-start;
-  filter: brightness(0) saturate(100%) invert(75%) sepia(5%) saturate(10%) hue-rotate(0deg) brightness(90%) contrast(90%);
   overflow-x: hidden;
+}
+
+.show-replies-btn {
+  filter: brightness(0) saturate(100%) invert(75%) sepia(5%) saturate(10%) hue-rotate(0deg) brightness(90%) contrast(90%);
+  cursor: pointer;
 }
 
 .reply-input-container {
@@ -245,4 +267,29 @@
   filter: brightness(0) saturate(100%) invert(59%) sepia(83%) saturate(2612%)
     hue-rotate(172deg) brightness(97%) contrast(96%);
   overflow-x: hidden;
+}
+
+.replies-container {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.reply {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.reply-user {
+  font-weight: bold;
+  color: #1da1f2;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.reply-user-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.2);
 }
