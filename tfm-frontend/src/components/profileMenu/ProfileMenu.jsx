@@ -41,7 +41,7 @@ const ProfileMenu = () => {
       .catch((error) => {
         console.error("Error al cargar whizzes", error);
       });
-  });
+  }, [backendUrl, userId]);
 
   useEffect(() => {
     const fetchUserData = async () => {
