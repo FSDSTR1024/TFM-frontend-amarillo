@@ -6,18 +6,28 @@ import "./ProfileMenu.css";
 import { WhizzesCard } from "../whizzesCard/WhizzesCard";
 import { useNavigate } from "react-router";
 import { Modal } from "../modal/Modal";
+import { useParams } from "react-router"
 
+// /profile => el menu del usuario logeago
+// /profile?id='hdulon' => el perfil de hdulon
 const ProfileMenu = () => {
-  const userId = localStorage.getItem("userId");
+  const userLoggedId = localStorage.getItem("userId");
+  const externalId =  useParams()
+  const userId = externalId.id || userLoggedId
+  console.log(userId);
+  const hasPermissions = externalId.id === userLoggedId
+  console.log('hasPermissions?:' , hasPermissions);
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [userData, setUserData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [userWhizzes, setUserWhizzes] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalAction, setModalAction] = useState("");
 
   const navigate = useNavigate();
 
-  const openModal = () => {
+  const openModal = (action) => {
+    setModalAction(action);
     setIsModalOpen(true);
   };
 
@@ -68,6 +78,28 @@ const ProfileMenu = () => {
     navigate("/");
   };
 
+  const handleDeleteAccount = async () => {
+    try {
+      const response = await fetch(`${backendUrl}/users/${userId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Error al eliminar la cuenta. Intenta de nuevo.");
+      }
+
+      localStorage.removeItem("token");
+      localStorage.removeItem("userId");
+      navigate("/");
+    } catch (error) {
+      console.error("Error al eliminar la cuenta:", error);
+      alert("Error al eliminar la cuenta. Intenta de nuevo.");
+    }
+  };
+
   const ProfilePicUpload = async (file, type) => {
     if (!file) return;
 
@@ -112,10 +144,14 @@ const ProfileMenu = () => {
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        onConfirm={handleLogout}
-        title="Cerrar sesión"
-        message="¿Seguro que quieres cerrar sesión?"
-        confirmText="Cerrar sesión"
+        onConfirm={modalAction === "logout" ? handleLogout : handleDeleteAccount}
+        title={modalAction === "logout" ? "Cerrar sesión" : "Eliminar cuenta"}
+        message={
+          modalAction === "logout"
+            ? "¿Estas seguro que quieres cerrar sesion?"
+            : "¿Estas seguro que quieres eliminar tu cuenta? Esta acción no se puede deshacer."
+        }
+        confirmText={modalAction === "logout" ? "Cerrar sesión" : "Eliminar cuenta"}
         cancelText="Cancelar"
       />
 
@@ -127,14 +163,16 @@ const ProfileMenu = () => {
               src={userData.bannerImage || logo}
               alt="banner"
             />
-            <input
-              type="file"
-              accept="image/*"
-              style={{ display: "none" }}
-              onChange={(e) =>
-                ProfilePicUpload(e.target.files[0], "bannerImage")
-              }
-            />
+            {hasPermissions &&
+              <input
+                type="file"
+                accept="image/*"
+                style={{ display: "none" }}
+                onChange={(e) =>
+                  ProfilePicUpload(e.target.files[0], "bannerImage")
+                }
+              />
+            }
           </label>
         </div>
         <label className="profile-pic-container">
@@ -143,14 +181,16 @@ const ProfileMenu = () => {
             src={userData.profilePicture || perfil}
             alt="picture"
           />
-          <input
-            type="file"
-            accept="image/*"
-            style={{ display: "none" }}
-            onChange={(e) =>
-              ProfilePicUpload(e.target.files[0], "profilePicture")
-            }
-          />
+          {hasPermissions &&
+            <input
+              type="file"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={(e) =>
+                ProfilePicUpload(e.target.files[0], "profilePicture")
+              }
+            />
+          }
         </label>
         <div className="profile-details">
           <h2 className="profile-name">
@@ -174,6 +214,11 @@ const ProfileMenu = () => {
               day: "numeric",
             })}
           </p>
+          {hasPermissions &&
+            <button className="delete-profile-btn" onClick={() => openModal("deleteAccount")}>
+              Borrar Cuenta
+            </button>
+          }
         </div>
 
         <div className="profile-stats">
@@ -185,9 +230,13 @@ const ProfileMenu = () => {
           </span>
         </div>
 
-        <button className="logout-btn" onClick={openModal}>
-          Cerrar sesión
-        </button>
+        {hasPermissions &&
+          <button className="logout-btn" onClick={() => openModal("logout")}>
+            Cerrar sesión
+          </button>
+          ||
+          <button className="follow-btn">Seguir</button>
+          }
       </div>
       <div className="profile-whizzes">
         {isLoading ? (

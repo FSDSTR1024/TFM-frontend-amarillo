@@ -30,7 +30,7 @@ function App() {
           <Route path="/main" element={<Feed />} />
           <Route path="/whizzes" element={<Whizzes />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/:id" element={<Profile />} />
           <Route path="/search" element={<Search />} />
         </Routes>
       </Layout>
