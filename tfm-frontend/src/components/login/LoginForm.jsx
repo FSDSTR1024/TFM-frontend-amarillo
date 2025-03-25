@@ -21,6 +21,13 @@ const LoginForm = () => {
         }),
       });
 
+      if (response.status === 404) {
+        alert(
+          "El usuario no existe. Por favor revisa tus datos e intenta de nuevo."
+        );
+        return;
+      }
+
       if (!response.ok) {
         throw new Error(`Error: ${response.statusText}`);
       }

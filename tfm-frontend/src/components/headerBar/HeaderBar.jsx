@@ -38,7 +38,7 @@ const HeaderBar = () => {
         <div className="title">
           {isFeed && <img className="logo" src={logowhite} alt="logo" />}
         </div>
-        <Link to="/profile">
+        <Link to={`/profile/${userId}`}>
           <img
             className="perfil"
             src={userData.profilePicture || perfil}

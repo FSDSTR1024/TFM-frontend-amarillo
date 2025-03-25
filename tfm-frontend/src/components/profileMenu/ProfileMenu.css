@@ -107,14 +107,27 @@
   height: 15px;
 }
 
-.logout-btn {
+.logout-btn, .follow-btn, .unfollow-btn {
   position: absolute;
   right: 5px;
   top: 115px;
   padding: 5px;
   font-size: 14px;
   margin-top: 10px;
+  border: 1px solid gray;
+  border-radius: 15px;
+  background: transparent;
+  cursor: pointer;
+}
 
+.follow-btn, .unfollow-btn {
+  min-width: 100px;
+}
+
+.delete-profile-btn {
+  padding: 5px;
+  font-size: 14px;
+  margin-top: 10px;
   border: 1px solid gray;
   border-radius: 15px;
   background: transparent;

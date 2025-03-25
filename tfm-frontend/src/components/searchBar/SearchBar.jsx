@@ -53,7 +53,7 @@ const SearchBar = () => {
         {results.length > 0 && (
           <ul className="search-list">
             {results.map((user) => (
-              <li key={user.username} onClick={() => navigate(`/profile`)}>
+              <li key={user.username} onClick={() => navigate(`/profile/${user._id}`)}>
                 <img className="avatar" src={user.profilePicture || perfil} />
                 @{user.username}
               </li>
