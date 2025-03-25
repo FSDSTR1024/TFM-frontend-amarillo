@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import perfil from "../../assets/icons/usuario-arriba.svg";
 import logo from "../../assets/icons/whiz.svg";
 import globo from "../../assets/icons/globos.svg";
@@ -6,19 +6,16 @@ import "./ProfileMenu.css";
 import { WhizzesCard } from "../whizzesCard/WhizzesCard";
 import { useNavigate } from "react-router";
 import { Modal } from "../modal/Modal";
-import { useParams } from "react-router"
+import { useParams } from "react-router";
 
-// /profile => el menu del usuario logeago
-// /profile?id='hdulon' => el perfil de hdulon
 const ProfileMenu = () => {
-  const userLoggedId = localStorage.getItem("userId");
+  const loggedUserId = localStorage.getItem("userId");
   const externalId =  useParams()
-  const userId = externalId.id || userLoggedId
-  console.log(userId);
-  const hasPermissions = externalId.id === userLoggedId
-  console.log('hasPermissions?:' , hasPermissions);
+  const userId = externalId.id || loggedUserId
+  const hasPermissions = externalId.id === loggedUserId
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [userData, setUserData] = useState({});
+  const [isChanged, setIsChanged] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [userWhizzes, setUserWhizzes] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -61,12 +58,18 @@ const ProfileMenu = () => {
         });
         const data = await response.json();
         setUserData(data);
+        console.log(data);
       } catch (error) {
         console.error("Error al cargar el perfil", error);
       }
     };
     fetchUserData();
-  }, [ userId, backendUrl ]);
+  }, [userId, backendUrl, isChanged]);
+
+const isFollowing = useMemo(() => {
+  return userData?.followers?.includes(loggedUserId);
+}, [userData, loggedUserId]);
+console.log("isFollowing:", isFollowing);
 
   if (isLoading) {
     return <p>Cargando perfil...</p>;
@@ -98,6 +101,27 @@ const ProfileMenu = () => {
       console.error("Error al eliminar la cuenta:", error);
       alert("Error al eliminar la cuenta. Intenta de nuevo.");
     }
+  };
+
+  const handleFollowToggle = async () => {
+    try {
+      const response = await fetch(`${backendUrl}/users/${userId}/follow`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error al ${isFollowing ? "dejar de seguir" : "seguir"} al usuario. Intenta de nuevo.`);
+      }
+
+      setIsChanged((prev) => !prev);
+    } catch (error) {
+      console.error(`Error al ${isFollowing ? "dejar de seguir" : "seguir"} al usuario:`, error);
+      alert(`Error al ${isFollowing ? "dejar de seguir" : "seguir"} al usuario. Intenta de nuevo.`);
+        }
   };
 
   const ProfilePicUpload = async (file, type) => {
@@ -235,7 +259,7 @@ const ProfileMenu = () => {
             Cerrar sesión
           </button>
           ||
-          <button className="follow-btn">Seguir</button>
+          <button className="follow-btn" onClick={handleFollowToggle}>{isFollowing ? "Dejar de seguir" : "Seguir"}</button>
           }
       </div>
       <div className="profile-whizzes">

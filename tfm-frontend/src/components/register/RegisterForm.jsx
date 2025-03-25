@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import "./RegisterForm.css";
 import { Link, useNavigate } from "react-router-dom";
 import { Check, X } from "lucide-react";
+import { useState } from "react";
 
 const RegisterForm = () => {
   const {
@@ -11,6 +12,7 @@ const RegisterForm = () => {
     watch,
   } = useForm({ mode: "onChange" });
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const password = watch("password", "");
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const passwordValidations = {
@@ -72,6 +74,7 @@ const RegisterForm = () => {
         console.log("Correo de bienvenida enviado con éxito");
       }
 
+      setIsLoading(true);
       navigate("/");
     } catch (error) {
       console.error(error);
@@ -254,7 +257,7 @@ const RegisterForm = () => {
 
         {errors.location && <p className="error">{errors.location.message}</p>}
 
-        <button type="submit">Registrarte</button>
+        <button type="submit">{isLoading ? "Cargando..." : "Registrate"}</button>
         <p className="switch-form">
           ¿Ya tienes una cuenta? <Link to="/">Inicia sesión</Link>
         </p>

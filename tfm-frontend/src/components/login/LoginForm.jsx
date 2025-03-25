@@ -11,6 +11,7 @@ const LoginForm = () => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   const onSubmit = async (data) => {
+    setIsLoading(true);
     try {
       const response = await fetch(`${backendUrl}/users/login`, {
         method: "POST",
@@ -39,7 +40,6 @@ const LoginForm = () => {
 
       localStorage.setItem("token", result.token);
       localStorage.setItem("userId", result.user.id);
-      setIsLoading(true);
       navigate("/main");
     } catch (error) {
       console.error(error);
