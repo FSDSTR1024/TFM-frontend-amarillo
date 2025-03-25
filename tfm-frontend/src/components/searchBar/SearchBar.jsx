@@ -1,5 +1,6 @@
 import "./SearchBar.css";
 import lupa from "../../assets/icons/lupa.svg";
+import atras from "../../assets/icons/angulo-izquierdo.svg";
 import { useEffect, useState } from "react";
 import perfil from "../../assets/icons/usuario-arriba.svg";
 import { useNavigate } from "react-router";
@@ -40,6 +41,7 @@ const SearchBar = () => {
   return (
     <div className="search-bar-container">
       <div className="search-bar">
+        <img src={atras} alt="atras" onClick={() => window.history.back()} />
         <img src={lupa} alt="lupa" />
         <input
           type="text"

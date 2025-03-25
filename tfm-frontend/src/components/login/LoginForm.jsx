@@ -1,10 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import "./LoginForm.css";
+import { useState } from "react";
 
 const LoginForm = () => {
   const { register, handleSubmit, formState } = useForm();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const requiredMessage = "Este campo es obligatorio";
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -37,6 +39,7 @@ const LoginForm = () => {
 
       localStorage.setItem("token", result.token);
       localStorage.setItem("userId", result.user.id);
+      setIsLoading(true);
       navigate("/main");
     } catch (error) {
       console.error(error);
@@ -79,7 +82,7 @@ const LoginForm = () => {
           <p className="error">{formState.errors.password.message}</p>
         )}
 
-        <button type="submit">Entrar</button>
+        <button type="submit">{isLoading ? "Cargando..." : "Iniciar Sesión"}</button>
         <p className="switch-form">
           ¿No tienes una cuenta? <Link to="/register">Regístrate</Link>
         </p>

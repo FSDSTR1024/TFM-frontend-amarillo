@@ -1,7 +1,7 @@
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import "./HeaderBar.css";
-import barra from "../../assets/icons/clasificacion-de-barras.svg";
+import atras from "../../assets/icons/angulo-izquierdo.svg";
 import refrescar from "../../assets/icons/deshacer.svg";
 import logowhite from "../../assets/Whiz[1].svg";
 import perfil from "../../assets/icons/usuario-arriba.svg";
@@ -29,7 +29,7 @@ const HeaderBar = () => {
       <nav className="header-bar">
         <div className="left-icons">
           <button>
-            <img src={barra} alt="barra" />
+            <img src={atras} alt="atras" onClick={() => window.history.back()}/>
           </button>
           <button onClick={() => window.location.reload()}>
             <img src={refrescar} alt="refrescar" />
