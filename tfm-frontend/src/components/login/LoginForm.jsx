@@ -10,6 +10,7 @@ const LoginForm = () => {
   const requiredMessage = "Este campo es obligatorio";
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
+  //Función que controla el envío de los datos del formulario
   const onSubmit = async (data) => {
     setIsLoading(true);
     try {
@@ -36,7 +37,6 @@ const LoginForm = () => {
       }
 
       const result = await response.json();
-      console.log(result);
 
       localStorage.setItem("token", result.token);
       localStorage.setItem("userId", result.user.id);
@@ -55,6 +55,7 @@ const LoginForm = () => {
       <h2>Login</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="username">Nombre de usuario:</label>
+        {/* Input de usuario y contraseña con sus validaciones correspondientes */}
         <input
           type="text"
           placeholder="Nombre de usuario o email"
@@ -82,7 +83,9 @@ const LoginForm = () => {
           <p className="error">{formState.errors.password.message}</p>
         )}
 
-        <button type="submit">{isLoading ? "Cargando..." : "Iniciar Sesión"}</button>
+        <button type="submit">
+          {isLoading ? "Cargando..." : "Iniciar Sesión"}
+        </button>
         <p className="switch-form">
           ¿No tienes una cuenta? <Link to="/register">Regístrate</Link>
         </p>

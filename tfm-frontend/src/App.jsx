@@ -18,10 +18,11 @@ import Following from "./pages/Following";
 
 function Layout({ children }) {
   const location = useLocation();
-  const specialBackground = ["/main", "/profile"];
+  const specialBackground = ["/main"];
 
   return (
     <>
+      {/* background espacial para la feed, para mejorar la visibilidad */}
       <div
         className={`background-container ${
           specialBackground.includes(location.pathname)

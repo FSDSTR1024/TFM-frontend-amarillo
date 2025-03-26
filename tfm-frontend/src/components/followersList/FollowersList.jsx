@@ -6,11 +6,12 @@ import { useEffect, useState } from "react";
 const FollowersList = () => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const loggedUserId = localStorage.getItem("userId");
-  const externalId =  useParams()
-  const userId = externalId.id || loggedUserId
+  const externalId = useParams();
+  const userId = externalId.id || loggedUserId;
   const [followers, setFollowers] = useState([]);
   const navigate = useNavigate();
 
+  // useEffect para obtener los seguidores del usuario según su id
   useEffect(() => {
     const getFollowers = async () => {
       try {
@@ -32,15 +33,17 @@ const FollowersList = () => {
       <ul className="followers-list">
         {followers.map((user) => (
           <li key={user._id} onClick={() => navigate(`/profile/${user._id}`)}>
-            <img className="follower-image" src={user.profilePicture || perfil} alt="Perfil" />
+            <img
+              className="follower-image"
+              src={user.profilePicture || perfil}
+              alt="Perfil"
+            />
             @{user.username}
           </li>
         ))}
       </ul>
     </div>
-  )
+  );
 };
-
-
 
 export default FollowersList;

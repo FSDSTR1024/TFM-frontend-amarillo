@@ -29,23 +29,26 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
   const [deletingReplyId, setIsDeletingReplyId] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
 
+  // Funciones para abrir y cerrar el modal de eliminar whizzes o respuestas
   const openDeleteWhizzModal = () => {
     setIsDeletingWhizz(true);
     setIsModalOpen(true);
   };
 
   const openDeleteReplyModal = (replyId) => {
-    return () => {;
-    setIsDeletingWhizz(false);
-    setIsDeletingReplyId(replyId);
-    setIsModalOpen(true);
+    return () => {
+      setIsDeletingWhizz(false);
+      setIsDeletingReplyId(replyId);
+      setIsModalOpen(true);
     };
   };
 
+  // useEffect para controlar si el usuario ha dado like a un whizz
   useEffect(() => {
     setLiked(whizz.likedBy.includes(userId));
   }, [whizz, userId]);
 
+  // Función para dar o quitar like a un whizz e incrementar o decrementar el contador de likes
   const handleLike = async () => {
     try {
       const response = await fetch(`${backendUrl}/whizzes/${whizz._id}/like`, {
@@ -70,6 +73,7 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
     }
   };
 
+  // Función para hacer un rewhizz
   const handleReWhizz = async () => {
     try {
       navigate("/whizzes", { state: { quotedWhizz: whizz } });
@@ -81,12 +85,12 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
     }
   };
 
+  // Función para eliminar un whizz o una respuesta
   const handleDelete = async () => {
     try {
-
       let url = isDeletingWhizz
         ? `${backendUrl}/whizzes/${whizz._id}`
-        : `${backendUrl}/replies/${deletingReplyId}`
+        : `${backendUrl}/replies/${deletingReplyId}`;
 
       const response = await fetch(url, {
         method: "DELETE",
@@ -112,10 +116,12 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
     }
   };
 
+  // Función para mostrar el input para crear una respuesta
   const toggleReplyInput = () => {
     setShowReplyInput(!showReplyInput);
   };
 
+  // Función para crear una respuesta a un whizz
   const handleReply = async () => {
     if (!replyContent.trim()) return;
 
@@ -144,9 +150,12 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
     }
   };
 
+  // Función para obtener las respuestas de un whizz
   const getReplies = async () => {
     try {
-      const response = await fetch(`${backendUrl}/replies/${whizz._id}/replies`);
+      const response = await fetch(
+        `${backendUrl}/replies/${whizz._id}/replies`
+      );
 
       if (!response.ok) {
         throw new Error("Error al obtener las respuestas");
@@ -159,6 +168,7 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
     }
   };
 
+  // Función para mostrar o ocultar las respuestas de un whizz
   const handleShowReplies = () => {
     if (!showReplies) {
       getReplies();
@@ -166,12 +176,16 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
     setShowReplies(!showReplies);
   };
 
+  // Función para hacer scroll hasta el whizz original a partir de un whizz citado
   const scrollToWhizz = () => {
     const quotedWhizz = whizz.inReWhizzTo._id;
     const quotedWhizzElement = document.getElementById(quotedWhizz);
 
     if (quotedWhizzElement) {
-      quotedWhizzElement.scrollIntoView({ behavior: "smooth", block: "center" });
+      quotedWhizzElement.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
     } else {
       alert("El whizz original no se encuentra");
     }
@@ -183,16 +197,28 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onConfirm={handleDelete}
-        title= {isDeletingWhizz ? "Eliminar Whizz" : "Eliminar Respuesta"}
-        message={isDeletingWhizz
-          ? "¿Estás seguro de eliminar este whizz? Esta acción no se puede deshacer"
-          :  "¿Estás seguro de eliminar esta respuesta? Esta acción no se puede deshacer"}
+        title={isDeletingWhizz ? "Eliminar Whizz" : "Eliminar Respuesta"}
+        message={
+          isDeletingWhizz
+            ? "¿Estás seguro de eliminar este whizz? Esta acción no se puede deshacer"
+            : "¿Estás seguro de eliminar esta respuesta? Esta acción no se puede deshacer"
+        }
         confirmText="Eliminar"
         cancelText="Cancelar"
       />
 
-      <div id={whizz._id} className="whizz-card" >
-        <h4 className="whizz-card-user" onClick={() => navigate(`/profile/${whizz.user._id}`)}><img className="whizz-card-img" src={whizz.user?.profilePicture || perfil} alt=""></img>@{whizz.user?.username}</h4>
+      <div id={whizz._id} className="whizz-card">
+        <h4
+          className="whizz-card-user"
+          onClick={() => navigate(`/profile/${whizz.user._id}`)}
+        >
+          <img
+            className="whizz-card-img"
+            src={whizz.user?.profilePicture || perfil}
+            alt=""
+          ></img>
+          @{whizz.user?.username}
+        </h4>
         <p>{whizz.content}</p>
 
         {whizz.media && whizz.media.length > 0 && (
@@ -221,7 +247,17 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
 
         {whizz.inReWhizzTo && (
           <div className="quoted-whizz-container">
-            <p className="quoted-user" onClick={() => navigate(`/profile/${whizz.inReWhizzTo.user._id}`)}><img className="whizz-card-img" src={whizz.inReWhizzTo.user?.profilePicture || perfil} alt=""></img>@{whizz.inReWhizzTo.user?.username}</p>
+            <p
+              className="quoted-user"
+              onClick={() => navigate(`/profile/${whizz.inReWhizzTo.user._id}`)}
+            >
+              <img
+                className="whizz-card-img"
+                src={whizz.inReWhizzTo.user?.profilePicture || perfil}
+                alt=""
+              ></img>
+              @{whizz.inReWhizzTo.user?.username}
+            </p>
             <p className="quoted-content">{whizz.inReWhizzTo.content}</p>
             <div className="quoted-whizz-media">
               {whizz.inReWhizzTo.media.map((url, index) =>
@@ -248,7 +284,10 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
         )}
 
         {selectedImage && (
-          <ImageModal imageUrl={selectedImage} onClose={() => setSelectedImage(null)} />
+          <ImageModal
+            imageUrl={selectedImage}
+            onClose={() => setSelectedImage(null)}
+          />
         )}
 
         <div className="whizz-card-icons">
@@ -262,7 +301,7 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
             <p className="likes-count">{likesCount}</p>
           </div>
           <div className="comment-container">
-            <img src={comment} alt="comment"  onClick={toggleReplyInput}/>
+            <img src={comment} alt="comment" onClick={toggleReplyInput} />
             <p className="comments-count">{repliesCount}</p>
           </div>
 
@@ -286,35 +325,60 @@ export const WhizzesCard = ({ whizz, updateWhizz }) => {
         </div>
 
         {showReplyInput && (
-            <div className="reply-input-container">
-              <img className="cancel-icon" src={cancelIcon} alt="cancel" onClick={toggleReplyInput} />
-              <textarea
-                type="text"
-                placeholder="Escribe tu respuesta..."
-                value={replyContent}
-                onChange={(e) => setReplyContent(e.target.value)}
-                rows="5"
-                maxLength={335}
-              />
-              <img className="send-icon" src={sendIcon} alt="send" onClick={handleReply} />
-            </div>
-          )}
+          <div className="reply-input-container">
+            <img
+              className="cancel-icon"
+              src={cancelIcon}
+              alt="cancel"
+              onClick={toggleReplyInput}
+            />
+            <textarea
+              type="text"
+              placeholder="Escribe tu respuesta..."
+              value={replyContent}
+              onChange={(e) => setReplyContent(e.target.value)}
+              rows="5"
+              maxLength={335}
+            />
+            <img
+              className="send-icon"
+              src={sendIcon}
+              alt="send"
+              onClick={handleReply}
+            />
+          </div>
+        )}
 
         {repliesCount > 0 && (
           <div className="show-whizz-replies">
-            <p className="show-replies-btn" onClick={handleShowReplies}>{showReplies ? "Ocultar respuestas" : "Ver respuestas"}
+            <p className="show-replies-btn" onClick={handleShowReplies}>
+              {showReplies ? "Ocultar respuestas" : "Ver respuestas"}
             </p>
 
             {showReplies && (
               <div className="replies-container">
                 {replies.map((reply) => (
                   <div key={reply._id} className="reply">
-                    <p><strong className="reply-user" onClick={() => navigate(`/profile/${reply.userId._id}`)}><img className="reply-user-icon" src={reply.userId.profilePicture || perfil}></img>@{reply.userId.username}</strong> {reply.content}</p>
+                    <p>
+                      <strong
+                        className="reply-user"
+                        onClick={() => navigate(`/profile/${reply.userId._id}`)}
+                      >
+                        <img
+                          className="reply-user-icon"
+                          src={reply.userId.profilePicture || perfil}
+                        ></img>
+                        @{reply.userId.username}
+                      </strong>{" "}
+                      {reply.content}
+                    </p>
                     {reply.userId._id === userId && (
                       <p
                         className="delete-reply-icon"
                         onClick={openDeleteReplyModal(reply._id)}
-                      >Eliminar respuesta</p>
+                      >
+                        Eliminar respuesta
+                      </p>
                     )}
                   </div>
                 ))}

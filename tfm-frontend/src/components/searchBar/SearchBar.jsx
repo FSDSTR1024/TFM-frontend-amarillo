@@ -1,7 +1,7 @@
 import "./SearchBar.css";
 import lupa from "../../assets/icons/lupa.svg";
 import atras from "../../assets/icons/angulo-izquierdo.svg";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import perfil from "../../assets/icons/usuario-arriba.svg";
 import { useNavigate } from "react-router";
 
@@ -10,6 +10,8 @@ const SearchBar = () => {
   const [results, setResults] = useState([]);
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const navigate = useNavigate();
+
+  // Función para obtener los usuarios según el término de búsqueda
   const fetchUsers = async (searchTerm) => {
     if (!searchTerm) {
       setResults([]);
@@ -28,15 +30,12 @@ const SearchBar = () => {
     }
   };
 
+  //Función para manejar la búsqueda de usuarios en tiempo real según el input
   const handleSearch = (e) => {
     const value = e.target.value;
     setSearch(value);
     fetchUsers(value);
   };
-
-  useEffect(() => {
-    console.log("estado de results actualizado", results);
-  }, [results]);
 
   return (
     <div className="search-bar-container">
@@ -55,9 +54,12 @@ const SearchBar = () => {
         {results.length > 0 && (
           <ul className="search-list">
             {results.map((user) => (
-              <li key={user.username} onClick={() => navigate(`/profile/${user._id}`)}>
-                <img className="avatar" src={user.profilePicture || perfil} />
-                @{user.username}
+              <li
+                key={user.username}
+                onClick={() => navigate(`/profile/${user._id}`)}
+              >
+                <img className="avatar" src={user.profilePicture || perfil} />@
+                {user.username}
               </li>
             ))}
           </ul>
@@ -66,11 +68,5 @@ const SearchBar = () => {
     </div>
   );
 };
-
-/*let debounceTimer;
-const debounce = (fn, delay) => {
-  clearTimeout(debounceTimer);
-  debounceTimer = setTimeout(fn, delay);
-};*/
 
 export default SearchBar;

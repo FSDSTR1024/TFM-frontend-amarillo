@@ -12,6 +12,7 @@ const WhizzesContainer = () => {
   const [showNewWhizzesBtn, setShowNewWhizzesBtn] = useState(false);
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
+  // useEffect para obtener los whizzes y actualizar la lista de whizzes utilizando websockets
   useEffect(() => {
     fetch(`${backendUrl}/whizzes`)
       .then((response) => response.json())
@@ -32,8 +33,9 @@ const WhizzesContainer = () => {
     return () => {
       socketUrl.off("newWhizz");
     };
-  }, [ backendUrl]);
+  }, [backendUrl]);
 
+  // Función para actualizar la información de un whizz
   const updateWhizz = (updatedWhizz) => {
     setWhizzes((prevWhizzes) =>
       prevWhizzes.map((w) => (w._id === updatedWhizz._id ? updatedWhizz : w))

@@ -19,6 +19,7 @@ const CreateWhizz = () => {
     document.querySelector("." + target).click();
   };
 
+  // Función para subir imágenes y vídeos en un whizz utilizando cloudinary
   const handleFileUpload = async (file) => {
     if (!file) return;
 
@@ -44,6 +45,7 @@ const CreateWhizz = () => {
     }
   };
 
+  // Función para enviar un whizz y navegar automáticamente al feed
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -72,15 +74,12 @@ const CreateWhizz = () => {
       });
 
       if (!response.ok) {
-        console.log(response);
         if (response.status === 404) {
           throw new Error("Whizz original no encontrado");
         }
         throw new Error("Error al crear el whizz");
       }
 
-      const data = await response.json();
-      console.log("Whizz creado exitosamente:", data);
       setContent("");
       setMedia([]);
       navigate("/main");
@@ -102,6 +101,7 @@ const CreateWhizz = () => {
         maxLength={335}
       />
 
+      {/* Contenedor para diferenciar entre el whizz citado y el whizz a crear */}
       {quotedWhizz && (
         <div className="quoted-whizz-container">
           <p className="quoted-user">@{quotedWhizz.user.username}</p>

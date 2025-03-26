@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Check, X } from "lucide-react";
 import { useState } from "react";
 
+// Formulario de registro de usuario que navega al login si el registro es exitoso
 const RegisterForm = () => {
   const {
     register,
@@ -15,6 +16,7 @@ const RegisterForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const password = watch("password", "");
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  // Comprobaciones para los requisitos de la contraseña
   const passwordValidations = {
     minLength: password.length >= 8,
     hasUpperCase: /[A-Z]/.test(password),
@@ -23,6 +25,7 @@ const RegisterForm = () => {
     hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(password),
   };
 
+  // Muestra los mensajes de validación de la contraseña
   const ValidationItem = ({ passed, text }) => (
     <div className="flex items-center gap-2 my-1">
       {passed ? (
@@ -36,6 +39,7 @@ const RegisterForm = () => {
     </div>
   );
 
+  // Función que controla el envío de los datos del formulario
   const onSubmit = async (data) => {
     try {
       const response = await fetch(`${backendUrl}/users`, {
@@ -58,8 +62,7 @@ const RegisterForm = () => {
         throw new Error(`Error: ${response.statusText}`);
       }
 
-      const result = await response.json();
-      console.log(result);
+      // Envío de correo de bienvenida utilizando Brevo
       const emailResponse = await fetch(`${backendUrl}/email/send-email`, {
         method: "POST",
         headers: {
@@ -92,6 +95,7 @@ const RegisterForm = () => {
         <label htmlFor="username">
           Nombre de usuario ( el nombre con el que quieres que te conozcamos ):
         </label>
+        {/* Inputs del formulario con sus validaciones correspondientes */}
         <input
           type="text"
           placeholder="Nombre de usuario"
@@ -257,7 +261,9 @@ const RegisterForm = () => {
 
         {errors.location && <p className="error">{errors.location.message}</p>}
 
-        <button type="submit">{isLoading ? "Cargando..." : "Registrate"}</button>
+        <button type="submit">
+          {isLoading ? "Cargando..." : "Registrate"}
+        </button>
         <p className="switch-form">
           ¿Ya tienes una cuenta? <Link to="/">Inicia sesión</Link>
         </p>

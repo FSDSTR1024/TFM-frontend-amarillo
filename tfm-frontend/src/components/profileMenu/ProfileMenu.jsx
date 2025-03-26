@@ -10,9 +10,9 @@ import { useParams } from "react-router";
 
 const ProfileMenu = () => {
   const loggedUserId = localStorage.getItem("userId");
-  const externalId =  useParams()
-  const userId = externalId.id || loggedUserId
-  const hasPermissions = externalId.id === loggedUserId
+  const externalId = useParams();
+  const userId = externalId.id || loggedUserId;
+  const hasPermissions = externalId.id === loggedUserId; // Comprueba si el usuario logueado es el mismo que el del perfil
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [userData, setUserData] = useState({});
   const [isChanged, setIsChanged] = useState(false);
@@ -28,6 +28,7 @@ const ProfileMenu = () => {
     setIsModalOpen(true);
   };
 
+  // useEffect para obtener los datos del usuario según su id
   useEffect(() => {
     const getUserById = async () => {
       setIsLoading(true);
@@ -39,6 +40,7 @@ const ProfileMenu = () => {
     getUserById();
   }, [backendUrl, userId]);
 
+  // useEffect para obtener los whizzes del usuario según su id
   useEffect(() => {
     fetch(`${backendUrl}/whizzes/user/${userId}`)
       .then((response) => response.json())
@@ -50,6 +52,7 @@ const ProfileMenu = () => {
       });
   }, [backendUrl, userId]);
 
+  //  useEffect para obtener la información del perfil del usuario
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -58,7 +61,6 @@ const ProfileMenu = () => {
         });
         const data = await response.json();
         setUserData(data);
-        console.log(data);
       } catch (error) {
         console.error("Error al cargar el perfil", error);
       }
@@ -66,21 +68,23 @@ const ProfileMenu = () => {
     fetchUserData();
   }, [userId, backendUrl, isChanged]);
 
-const isFollowing = useMemo(() => {
-  return userData?.followers?.includes(loggedUserId);
-}, [userData, loggedUserId]);
-console.log("isFollowing:", isFollowing);
+  // useMemo para comprobar si el usuario logueado sigue al usuario del perfil consultado
+  const isFollowing = useMemo(() => {
+    return userData?.followers?.includes(loggedUserId);
+  }, [userData, loggedUserId]);
 
   if (isLoading) {
     return <p>Cargando perfil...</p>;
   }
 
+  // Función para cerrar sesión
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
     navigate("/");
   };
 
+  // Función para eliminar la cuenta mediante soft delete
   const handleDeleteAccount = async () => {
     try {
       const response = await fetch(`${backendUrl}/users/${userId}`, {
@@ -103,6 +107,7 @@ console.log("isFollowing:", isFollowing);
     }
   };
 
+  // Función para seguir o dejar de seguir a un usuario
   const handleFollowToggle = async () => {
     try {
       const response = await fetch(`${backendUrl}/users/${userId}/follow`, {
@@ -114,16 +119,28 @@ console.log("isFollowing:", isFollowing);
       });
 
       if (!response.ok) {
-        throw new Error(`Error al ${isFollowing ? "dejar de seguir" : "seguir"} al usuario. Intenta de nuevo.`);
+        throw new Error(
+          `Error al ${
+            isFollowing ? "dejar de seguir" : "seguir"
+          } al usuario. Intenta de nuevo.`
+        );
       }
 
       setIsChanged((prev) => !prev);
     } catch (error) {
-      console.error(`Error al ${isFollowing ? "dejar de seguir" : "seguir"} al usuario:`, error);
-      alert(`Error al ${isFollowing ? "dejar de seguir" : "seguir"} al usuario. Intenta de nuevo.`);
-        }
+      console.error(
+        `Error al ${isFollowing ? "dejar de seguir" : "seguir"} al usuario:`,
+        error
+      );
+      alert(
+        `Error al ${
+          isFollowing ? "dejar de seguir" : "seguir"
+        } al usuario. Intenta de nuevo.`
+      );
+    }
   };
 
+  // Función para subir la imagen de perfil con cloudinary
   const ProfilePicUpload = async (file, type) => {
     if (!file) return;
 
@@ -165,17 +182,22 @@ console.log("isFollowing:", isFollowing);
 
   return (
     <>
+      {/* Modal y botones que cambian de manera dinámica según los permisos y estados de cada usuario */}
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        onConfirm={modalAction === "logout" ? handleLogout : handleDeleteAccount}
+        onConfirm={
+          modalAction === "logout" ? handleLogout : handleDeleteAccount
+        }
         title={modalAction === "logout" ? "Cerrar sesión" : "Eliminar cuenta"}
         message={
           modalAction === "logout"
             ? "¿Estas seguro que quieres cerrar sesion?"
             : "¿Estas seguro que quieres eliminar tu cuenta? Esta acción no se puede deshacer."
         }
-        confirmText={modalAction === "logout" ? "Cerrar sesión" : "Eliminar cuenta"}
+        confirmText={
+          modalAction === "logout" ? "Cerrar sesión" : "Eliminar cuenta"
+        }
         cancelText="Cancelar"
       />
 
@@ -187,7 +209,7 @@ console.log("isFollowing:", isFollowing);
               src={userData.bannerImage || logo}
               alt="banner"
             />
-            {hasPermissions &&
+            {hasPermissions && (
               <input
                 type="file"
                 accept="image/*"
@@ -196,7 +218,7 @@ console.log("isFollowing:", isFollowing);
                   ProfilePicUpload(e.target.files[0], "bannerImage")
                 }
               />
-            }
+            )}
           </label>
         </div>
         <label className="profile-pic-container">
@@ -205,7 +227,7 @@ console.log("isFollowing:", isFollowing);
             src={userData.profilePicture || perfil}
             alt="picture"
           />
-          {hasPermissions &&
+          {hasPermissions && (
             <input
               type="file"
               accept="image/*"
@@ -214,7 +236,7 @@ console.log("isFollowing:", isFollowing);
                 ProfilePicUpload(e.target.files[0], "profilePicture")
               }
             />
-          }
+          )}
         </label>
         <div className="profile-details">
           <h2 className="profile-name">
@@ -238,11 +260,14 @@ console.log("isFollowing:", isFollowing);
               day: "numeric",
             })}
           </p>
-          {hasPermissions &&
-            <button className="delete-profile-btn" onClick={() => openModal("deleteAccount")}>
+          {hasPermissions && (
+            <button
+              className="delete-profile-btn"
+              onClick={() => openModal("deleteAccount")}
+            >
               Borrar Cuenta
             </button>
-          }
+          )}
         </div>
 
         <div className="profile-stats">
@@ -254,13 +279,15 @@ console.log("isFollowing:", isFollowing);
           </span>
         </div>
 
-        {hasPermissions &&
+        {(hasPermissions && (
           <button className="logout-btn" onClick={() => openModal("logout")}>
             Cerrar sesión
           </button>
-          ||
-          <button className="follow-btn" onClick={handleFollowToggle}>{isFollowing ? "Dejar de seguir" : "Seguir"}</button>
-          }
+        )) || (
+          <button className="follow-btn" onClick={handleFollowToggle}>
+            {isFollowing ? "Dejar de seguir" : "Seguir"}
+          </button>
+        )}
       </div>
       <div className="profile-whizzes">
         {isLoading ? (

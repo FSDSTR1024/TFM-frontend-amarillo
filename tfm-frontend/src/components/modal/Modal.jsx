@@ -1,6 +1,15 @@
 import "./Modal.css";
 
-export const Modal = ({ isOpen, onClose, onConfirm, title, message, confirmText, cancelText }) => {
+// Modal dinámico para eliminar cuenta, eliminar whizzes, eliminar comentarios y cerrar sesión.
+export const Modal = ({
+  isOpen,
+  onClose,
+  onConfirm,
+  title,
+  message,
+  confirmText,
+  cancelText,
+}) => {
   if (!isOpen) return null;
 
   return (
@@ -9,8 +18,12 @@ export const Modal = ({ isOpen, onClose, onConfirm, title, message, confirmText,
         <h2>{title}</h2>
         <p>{message}</p>
         <div className="modal-btns">
-          <button onClick={onConfirm} className="confirm-btn">{confirmText}</button>
-          <button onClick={onClose} className="cancel-btn">{cancelText}</button>
+          <button onClick={onConfirm} className="confirm-btn">
+            {confirmText}
+          </button>
+          <button onClick={onClose} className="cancel-btn">
+            {cancelText}
+          </button>
         </div>
       </div>
     </div>
