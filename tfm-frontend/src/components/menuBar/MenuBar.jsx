@@ -19,8 +19,12 @@ const MenuBar = () => {
         <Link to="/whizzes" className="add">
           <img src={crear} />
         </Link>
-        <img src={mensajes} />
-        <img src={notificaciones} />
+        <Link to="/messages">
+          <img src={mensajes} />
+        </Link>
+        <Link to="/notifications">
+          <img src={notificaciones} />
+        </Link>
       </nav>
     </div>
   );

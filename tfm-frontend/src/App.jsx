@@ -2,10 +2,14 @@ import "./App.css";
 import { Route, BrowserRouter as Router, Routes, useLocation } from "react-router-dom";
 import Feed from "./pages/Feed";
 import Profile from "./pages/Profile";
+import Notifications from './pages/Notifications'
 import Search from "./pages/Search";
+import Messages from './pages/Messages'
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Whizzes from "./pages/Whizzes";
+import Followers from "./pages/Followers";
+import Following from "./pages/Following";
 
 function Layout({ children }) {
   const location = useLocation();
@@ -31,7 +35,11 @@ function App() {
           <Route path="/whizzes" element={<Whizzes />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile/:id" element={<Profile />} />
+          <Route path="/notifications" element={<Notifications />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/profile/:id/followers" element={<Followers />} />
+          <Route path="/messages" element={<Messages />} />
+          <Route path="/profile/:id/following" element={<Following />} />
         </Routes>
       </Layout>
     </Router>

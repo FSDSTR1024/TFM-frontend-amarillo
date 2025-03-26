@@ -246,10 +246,10 @@ console.log("isFollowing:", isFollowing);
         </div>
 
         <div className="profile-stats">
-          <span>
+          <span onClick={() => navigate(`/profile/${userData._id}/following`)}>
             <strong>{userData.followingCount}</strong> siguiendo
           </span>
-          <span>
+          <span onClick={() => navigate(`/profile/${userData._id}/followers`)}>
             <strong>{userData.followersCount}</strong> seguidores
           </span>
         </div>
