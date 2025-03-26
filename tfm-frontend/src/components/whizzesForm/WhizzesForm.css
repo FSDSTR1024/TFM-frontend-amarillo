@@ -13,7 +13,7 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   align-items: center;
-  justify-content: space-between
+  justify-content: space-between;
 }
 
 .whizz-form textarea {
@@ -61,10 +61,17 @@
   height: 50px;
 }
 
+.media-preview img,
+video {
+  width: 100px;
+  height: 100px;
+}
+
 .whizz-form img:hover {
   scale: calc(1.1);
   cursor: pointer;
-  filter: brightness(0) saturate(100%) invert(59%) sepia(83%) saturate(2612%) hue-rotate(172deg) brightness(97%) contrast(96%);
+  filter: brightness(0) saturate(100%) invert(59%) sepia(83%) saturate(2612%)
+    hue-rotate(172deg) brightness(97%) contrast(96%);
 }
 
 .whizz-form button {
@@ -102,7 +109,8 @@
 }
 
 .whizz-form button:hover {
-  filter: brightness(0) saturate(100%) invert(59%) sepia(83%) saturate(2612%) hue-rotate(172deg) brightness(97%) contrast(96%);
+  filter: brightness(0) saturate(100%) invert(59%) sepia(83%) saturate(2612%)
+    hue-rotate(172deg) brightness(97%) contrast(96%);
 }
 
 @media (max-width: 600px) {

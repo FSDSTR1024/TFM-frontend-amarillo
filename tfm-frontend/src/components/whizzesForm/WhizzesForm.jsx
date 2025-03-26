@@ -117,7 +117,7 @@ const CreateWhizz = () => {
       <div className="media-container">
         {media.map((url, index) => (
           <div key={index} className="media-preview">
-            {url.includes("image") ? (
+            {url.includes("image", "video") ? (
               <img src={url} alt="upload" />
             ) : (
               <video src={url} controls />
