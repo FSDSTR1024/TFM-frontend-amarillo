@@ -1,10 +1,15 @@
 import "./App.css";
-import { Route, BrowserRouter as Router, Routes, useLocation } from "react-router-dom";
+import {
+  Route,
+  BrowserRouter as Router,
+  Routes,
+  useLocation,
+} from "react-router-dom";
 import Feed from "./pages/Feed";
 import Profile from "./pages/Profile";
-import Notifications from './pages/Notifications'
+import Notifications from "./pages/notifications/Notifications";
 import Search from "./pages/Search";
-import Messages from './pages/Messages'
+import Messages from "./pages/messages/Messages";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Whizzes from "./pages/Whizzes";
@@ -13,14 +18,18 @@ import Following from "./pages/Following";
 
 function Layout({ children }) {
   const location = useLocation();
-  const specialBackground = ["/main", "/profile"]
+  const specialBackground = ["/main", "/profile"];
 
   return (
     <>
-    <div className={`background-container ${specialBackground.includes(location.pathname) ? "special-background" : "default-background"}`}></div>
-      <div className="content-container">
-        {children}
-      </div>
+      <div
+        className={`background-container ${
+          specialBackground.includes(location.pathname)
+            ? "special-background"
+            : "default-background"
+        }`}
+      ></div>
+      <div className="content-container">{children}</div>
     </>
   );
 }
