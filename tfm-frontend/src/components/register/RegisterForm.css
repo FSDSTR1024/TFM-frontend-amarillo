@@ -96,3 +96,29 @@
 .register-form .check {
   color: green;
 }
+
+.password-input-container {
+  position: relative;
+}
+
+.register-form .password-toggle-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: transparent;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.register-form .password-toggle-btn:hover {
+  background-color: transparent;
+}
+
+.register-form .password-toggle-btn:focus {
+  outline: none;
+}

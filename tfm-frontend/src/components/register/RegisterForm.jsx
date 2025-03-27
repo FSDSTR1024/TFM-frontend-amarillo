@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import "./RegisterForm.css";
 import { Link, useNavigate } from "react-router-dom";
-import { Check, X } from "lucide-react";
+import { Check, X, Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 
 // Formulario de registro de usuario que navega al login si el registro es exitoso
@@ -14,6 +14,7 @@ const RegisterForm = () => {
   } = useForm({ mode: "onChange" });
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const password = watch("password", "");
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   // Comprobaciones para los requisitos de la contraseña
@@ -23,6 +24,11 @@ const RegisterForm = () => {
     hasLowerCase: /[a-z]/.test(password),
     hasNumber: /\d/.test(password),
     hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(password),
+  };
+
+  //Función para alternar la visibilidad de la contraseña
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
   };
 
   // Muestra los mensajes de validación de la contraseña
@@ -129,24 +135,34 @@ const RegisterForm = () => {
         {errors.email && <p className="error">{errors.email.message}</p>}
 
         <label htmlFor="password">Contraseña:</label>
-        <input
-          type="password"
-          placeholder="Contraseña"
-          {...register("password", {
-            required: "Este campo es obligatorio",
-            validate: {
-              minLength: (v) => v.length >= 8 || "Mínimo 8 caracteres",
-              hasUpperCase: (v) =>
-                /[A-Z]/.test(v) || "Debe contener una mayúscula",
-              hasLowerCase: (v) =>
-                /[a-z]/.test(v) || "Debe contener una minúscula",
-              hasNumber: (v) => /\d/.test(v) || "Debe contener un número",
-              hasSpecialChar: (v) =>
-                /[!@#$%^&*(),.?":{}|<>]/.test(v) ||
-                "Debe contener un carácter especial",
-            },
-          })}
-        />
+        <div className="password-input-container">
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Contraseña"
+            {...register("password", {
+              required: "Este campo es obligatorio",
+              validate: {
+                minLength: (v) => v.length >= 8 || "Mínimo 8 caracteres",
+                hasUpperCase: (v) =>
+                  /[A-Z]/.test(v) || "Debe contener una mayúscula",
+                hasLowerCase: (v) =>
+                  /[a-z]/.test(v) || "Debe contener una minúscula",
+                hasNumber: (v) => /\d/.test(v) || "Debe contener un número",
+                hasSpecialChar: (v) =>
+                  /[!@#$%^&*(),.?":{}|<>]/.test(v) ||
+                  "Debe contener un carácter especial",
+              },
+            })}
+          />
+          {/* Icono de mostrar/ocultar contraseña */}
+          <button
+            type="button"
+            className="password-toggle-btn"
+            onClick={togglePasswordVisibility}
+          >
+            {showPassword ? <EyeOff /> : <Eye />}
+          </button>
+        </div>
         {errors.password && <p className="error">{errors.password.message}</p>}
         <div className="password-requirements">
           <h4 className="text-sm font-medium mb-2">
@@ -224,6 +240,7 @@ const RegisterForm = () => {
           {...register("birthdate", {
             required: "Este campo es obligatorio",
           })}
+          max={new Date().toISOString().split("T")[0]}
         />
         {errors.birthdate && (
           <p className="error">{errors.birthdate.message}</p>

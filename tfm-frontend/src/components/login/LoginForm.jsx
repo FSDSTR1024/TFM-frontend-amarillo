@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { Check, X, Eye, EyeOff } from "lucide-react";
 import "./LoginForm.css";
 import { useState } from "react";
 
@@ -7,6 +8,7 @@ const LoginForm = () => {
   const { register, handleSubmit, formState } = useForm();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const requiredMessage = "Este campo es obligatorio";
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -73,13 +75,22 @@ const LoginForm = () => {
         )}
 
         <label htmlFor="password">Contraseña:</label>
-        <input
-          type="password"
-          placeholder="Contraseña"
-          {...register("password", {
-            required: { value: true, message: requiredMessage },
-          })}
-        />
+        <div className="password-input-container">
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Contraseña"
+            {...register("password", {
+              required: { value: true, message: requiredMessage },
+            })}
+          />
+          <button
+            type="button"
+            className="password-toggle-btn"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? <EyeOff /> : <Eye />}
+          </button>
+        </div>
         {formState.errors.password && (
           <p className="error">{formState.errors.password.message}</p>
         )}

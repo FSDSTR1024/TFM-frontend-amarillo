@@ -54,7 +54,7 @@ const WhizzesContainer = () => {
       )}
       {isLoading ? (
         <p>Cargando whizzes...</p>
-      ) : (
+      ) : whizzes.length > 0 ? (
         whizzes.map((whizz) => (
           <WhizzesCard
             key={whizz._id}
@@ -62,6 +62,11 @@ const WhizzesContainer = () => {
             updateWhizz={updateWhizz}
           />
         ))
+      ) : (
+        <div className="no-whizzes-container">
+          <p>No hay whizzes para mostrar</p>
+          <p>Cuando crees nuevos whizzes aparecerán aqui</p>
+        </div>
       )}
     </div>
   );
