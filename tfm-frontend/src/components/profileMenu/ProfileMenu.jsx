@@ -292,10 +292,15 @@ const ProfileMenu = () => {
       <div className="profile-whizzes">
         {isLoading ? (
           <p>Cargando whizzes...</p>
-        ) : (
+        ) : userWhizzes.length > 0 ? (
           userWhizzes.map((whizz) => (
             <WhizzesCard key={whizz._id} whizz={whizz} />
           ))
+        ) : (
+          <div className="no-whizzes-container">
+            <p>No hay whizzes para mostrar</p>
+            <p>Cuando crees nuevos whizzes aparecerán aqui</p>
+          </div>
         )}
       </div>
     </>
