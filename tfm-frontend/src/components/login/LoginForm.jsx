@@ -46,6 +46,7 @@ const LoginForm = () => {
       alert(
         `Error al iniciar sesion. Por favor revisa tus datos e intenta de nuevo.`
       );
+      setIsLoading(false);
     }
   };
 

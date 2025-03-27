@@ -84,6 +84,7 @@ const RegisterForm = () => {
       alert(
         `Error al registrar el usuario. Por favor revisa tus datos e intenta de nuevo.`
       );
+      setIsLoading(false);
     }
   };
 
