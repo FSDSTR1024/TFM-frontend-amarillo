@@ -42,6 +42,7 @@
   align-items: center;
   align-self: flex-start;
   gap: 5px;
+  cursor: pointer;
 }
 
 .whizz-card-img {
@@ -105,6 +106,7 @@
   display: flex;
   align-items: center;
   gap: 5px;
+  cursor: pointer;
 }
 
 .modal-overlay {
@@ -193,6 +195,10 @@
   cursor: pointer;
   filter: brightness(0) saturate(100%) invert(59%) sepia(83%) saturate(2612%)
     hue-rotate(172deg) brightness(97%) contrast(96%);
+}
+
+.whizz-card-icons .delete-icon:hover {
+  filter:brightness(0) saturate(100%) invert(17%) sepia(64%) saturate(4333%) hue-rotate(-5deg) brightness(93%) contrast(92%);
 }
 
 .show-whizz-replies {
@@ -285,6 +291,7 @@
   display: flex;
   align-items: center;
   gap: 5px;
+  cursor: pointer;
 }
 
 .reply-user-icon {
@@ -298,4 +305,8 @@
   font-size: small;
   cursor: pointer;
   filter: brightness(0) saturate(100%) invert(75%) sepia(5%) saturate(10%) hue-rotate(0deg) brightness(90%) contrast(90%);
+}
+
+.replies-container .delete-reply-icon:hover {
+  filter:brightness(0) saturate(100%) invert(17%) sepia(64%) saturate(4333%) hue-rotate(-5deg) brightness(93%) contrast(92%);
 }

@@ -1,7 +1,7 @@
 import "./SearchBar.css";
 import lupa from "../../assets/icons/lupa.svg";
 import atras from "../../assets/icons/angulo-izquierdo.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import perfil from "../../assets/icons/usuario-arriba.svg";
 import { useNavigate } from "react-router";
 
@@ -34,8 +34,23 @@ const SearchBar = () => {
   const handleSearch = (e) => {
     const value = e.target.value;
     setSearch(value);
-    fetchUsers(value);
+    return;
   };
+
+  // useEffect para hacer la búsqueda solo después de que el usuario deje de escribir
+  useEffect(() => {
+    if (!search) {
+      setResults([]);
+      return;
+    }
+
+    const debounceTimer = setTimeout(() => {
+      fetchUsers(search);
+    }, 500);
+
+    return () => clearTimeout(debounceTimer);
+  }, [search]);
+
 
   return (
     <div className="search-bar-container">

@@ -299,7 +299,7 @@ const ProfileMenu = () => {
         ) : (
           <div className="no-whizzes-container">
             <p>No hay whizzes para mostrar</p>
-            <p>Cuando crees nuevos whizzes aparecerán aqui</p>
+            <p>Cuando haya algo que mostrar aparecerá aqui</p>
           </div>
         )}
       </div>

@@ -87,6 +87,7 @@
   padding: 8px 15px;
   text-align: center;
   margin-right: 25px;
+  cursor: pointer;
 }
 
 .profile-stats span {
@@ -132,6 +133,11 @@
   border-radius: 15px;
   background: transparent;
   cursor: pointer;
+}
+
+.delete-profile-btn:hover {
+  filter:brightness(0) saturate(100%) invert(17%) sepia(64%) saturate(4333%) hue-rotate(-5deg) brightness(93%) contrast(92%);
+  color: white;
 }
 
 .no-whizzes-container {

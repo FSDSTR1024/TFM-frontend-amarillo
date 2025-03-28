@@ -31,7 +31,8 @@ const FollowersList = () => {
   return (
     <div className="followers-list-container">
       <ul className="followers-list">
-        {followers.map((user) => (
+        {followers.length >0 ? (
+          followers.map((user) => (
           <li key={user._id} onClick={() => navigate(`/profile/${user._id}`)}>
             <img
               className="follower-image"
@@ -39,8 +40,14 @@ const FollowersList = () => {
               alt="Perfil"
             />
             @{user.username}
-          </li>
-        ))}
+            </li>
+          ))
+        ) : (
+          <div className="no-followers-container">
+            <p>De momento no hay nadie por aquí</p>
+            <p>Cuando conectes con alguien se mostrarán aqui</p>
+          </div>
+        )}
       </ul>
     </div>
   );
