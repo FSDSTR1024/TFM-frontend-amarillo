@@ -33,13 +33,13 @@ const FollowersList = () => {
       <ul className="followers-list">
         {followers.length >0 ? (
           followers.map((user) => (
-          <li key={user._id} onClick={() => navigate(`/profile/${user._id}`)}>
-            <img
-              className="follower-image"
-              src={user.profilePicture || perfil}
-              alt="Perfil"
-            />
-            @{user.username}
+            <li key={user._id} onClick={() => navigate(`/profile/${user._id}`)}>
+              <img
+                className="follower-image"
+                src={user.profilePicture || perfil}
+                alt="Perfil"
+              />
+              <p className="follower-username">@{user.username}</p>
             </li>
           ))
         ) : (

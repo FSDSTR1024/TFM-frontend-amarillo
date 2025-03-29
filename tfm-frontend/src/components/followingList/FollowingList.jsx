@@ -32,16 +32,23 @@ const FollowingList = () => {
   return (
     <div className="following-list-container">
       <ul className="following-list">
-        {following.map((user) => (
-          <li key={user._id} onClick={() => navigate(`/profile/${user._id}`)}>
-            <img
-              className="following-image"
-              src={user.profilePicture ? user.profilePicture : perfil}
-              alt="perfil"
-            />
-            <p className="following-name">@{user.username}</p>
-          </li>
-        ))}
+        {following.length > 0 ? (
+          following.map((user) => (
+            <li key={user._id} onClick={() => navigate(`/profile/${user._id}`)}>
+              <img
+                className="following-image"
+                src={user.profilePicture ? user.profilePicture : perfil}
+                alt="perfil"
+              />
+              <p className="following-name">@{user.username}</p>
+            </li>
+          ))
+        ) : (
+          <div className="no-following-container">
+            <p>De momento no hay nadie por aqui.</p>
+            <p>Cuando conectes con alguien se mostrarán aqui</p>
+          </div>
+        )}
       </ul>
     </div>
   );
